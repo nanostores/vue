@@ -33,7 +33,6 @@ with many atomic tree-shakable stores.
     }
   }
 </script>
-}
 ```
 
 [Nano Stores]: https://github.com/nanostores/nanostores/
