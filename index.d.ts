@@ -2,7 +2,7 @@ import { DeepReadonly, Ref } from 'vue'
 import { Store } from 'nanostores'
 
 /**
- * Subscribe to store changes and get store’s value.
+ * Subscribes to store changes and gets store’s value.
  *
  * ```html
  * <template>
@@ -11,7 +11,7 @@ import { Store } from 'nanostores'
  * </template>
  *
  * <script>
- * import { useStore } from 'nanostores/vue'
+ * import { useStore } from '@nanostores/vue'
  *
  * import { router } from './router'
  *
