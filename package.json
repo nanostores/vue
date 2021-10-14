@@ -1,5 +1,5 @@
 {
-  "name": "nanostores-react",
+  "name": "@nanostores/vue",
   "version": "0.0.0",
   "description": "Vue integration for Nano Stores, a tiny state manager with many atomic tree-shakable stores",
   "keywords": [
@@ -14,7 +14,7 @@
   },
   "author": "Andrey Sitnik <andrey@sitnik.ru>",
   "license": "MIT",
-  "repository": "nanostores/react",
+  "repository": "nanostores/vue",
   "sideEffects": false,
   "type": "module",
   "types": "./index.d.ts",

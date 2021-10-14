@@ -20,7 +20,7 @@ with many atomic tree-shakable stores.
 </template>
 
 <script>
-  import { useStore } from 'nanostores/vue'
+  import { useStore } from '@nanostores/vue'
 
   import { profile } from '../stores/profile.js'
   import { User } from '../stores/user.js'
