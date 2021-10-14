@@ -1,5 +1,5 @@
 import { DeepReadonly, Ref } from 'vue'
-import { Store } from 'nanostores'
+import { Store, StoreValue } from 'nanostores'
 
 /**
  * Subscribes to store changes and gets store’s value.
@@ -27,6 +27,7 @@ import { Store } from 'nanostores'
  * @param store Store instance.
  * @returns Store value.
  */
-export function useStore<Value extends any>(
-  store: Store<Value>
-): DeepReadonly<Ref<Value>>
+export function useStore<
+  SomeStore extends Store,
+  Value extends StoreValue<SomeStore>
+>(store: SomeStore): DeepReadonly<Ref<Value>>
