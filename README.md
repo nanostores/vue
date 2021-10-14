@@ -32,8 +32,7 @@ with many atomic tree-shakable stores.
       return { currentUser }
     }
   }
-</script>eturn <header>{currentUser.name}</header>
-}
+</script>
 ```
 
 [Nano Stores]: https://github.com/nanostores/nanostores/
