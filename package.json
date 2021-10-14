@@ -115,7 +115,7 @@
         "index.js": "{ useStore }",
         "nanostores": "{ map, computed }"
       },
-      "limit": "751 B"
+      "limit": "750 B"
     }
   ],
   "yaspeller": {

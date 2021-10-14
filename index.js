@@ -2,7 +2,6 @@ import { getCurrentInstance, onBeforeUnmount, readonly, ref } from 'vue'
 
 export function useStore(store) {
   let state = ref()
-  let unsubscribe
 
   if (process.env.NODE_ENV !== 'production') {
     if (typeof store === 'function') {
@@ -13,7 +12,7 @@ export function useStore(store) {
     }
   }
 
-  unsubscribe = store.subscribe(value => {
+  let unsubscribe = store.subscribe(value => {
     state.value = value
   })
 
