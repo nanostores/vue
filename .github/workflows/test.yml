@@ -1,7 +1,7 @@
 name: Test
-on:
-  push:
-  pull_request:
+
+on: [push, pull_request]
+
 jobs:
   full:
     name: Node.js 16 Full
@@ -24,9 +24,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version:
-          - 14
-          - 12
+        node-version: [14, 12]
     name: Node.js ${{ matrix.node-version }} Quick
     steps:
       - name: Checkout the repository
