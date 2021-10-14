@@ -29,4 +29,4 @@ import { Store } from 'nanostores'
  */
 export function useStore<Value extends any>(
   store: Store<Value>
-): DeepReadonly<Ref<Type>>
+): DeepReadonly<Ref<Value>>
