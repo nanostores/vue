@@ -1,6 +1,6 @@
 import { atom, map } from 'nanostores'
 
-import { useStore } from '../index.js'
+import { useStore } from './index.js'
 
 type State = { letter: string }
 

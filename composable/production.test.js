@@ -3,7 +3,7 @@ import { atom } from 'nanostores'
 import Vue from 'vue'
 
 import '../test/set-production.js'
-import { useStore } from '../index.js'
+import { useStore } from './index.js'
 
 let { defineComponent, isReadonly } = Vue
 let { render } = VueTesting
