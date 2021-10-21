@@ -101,10 +101,7 @@
     }
   },
   "eslintConfig": {
-    "extends": "@logux/eslint-config/esm",
-    "rules": {
-      "@typescript-eslint/no-explicit-any": "off"
-    }
+    "extends": "@logux/eslint-config/esm"
   },
   "eslintIgnore": [
     "**/errors.ts"
