@@ -10,7 +10,7 @@ import Vue, { Component } from 'vue'
 import VueTesting from '@testing-library/vue'
 import { delay } from 'nanodelay'
 
-import { useStore } from '../index.js'
+import { useStore } from './index.js'
 
 let { defineComponent, computed, nextTick, ref, h } = Vue
 let { render, screen } = VueTesting
