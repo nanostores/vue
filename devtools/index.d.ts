@@ -14,7 +14,7 @@ export function attachStores(
   stores: {
     [key: string]: AnyStore
   },
-  optss: {
+  opts?: {
     nameGetter?: StoreNameGetter
   }
 ): void
