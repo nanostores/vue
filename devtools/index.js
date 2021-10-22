@@ -118,6 +118,8 @@ function createLogger(app, api, store, storeName) {
 
   onSet(store, ({ changed, newValue }) => {
     api.sendInspectorState(inspectorId)
+    api.notifyComponentUpdate()
+
     let subtitle = 'Changed'
     let action = store[lastAction]
     let data = {
