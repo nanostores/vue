@@ -166,25 +166,6 @@ function createLogger(app, api, store, storeName) {
           })
         )
       }
-      payload.state = {
-        state: isAtom
-          ? [
-              {
-                key: 'value',
-                value: store.get(),
-                editable: true
-              }
-            ]
-          : Object.entries(store.get()).map(([key, value]) => ({
-              key,
-              value,
-              editable: true
-            })),
-        store: {
-          listeners: store.lc,
-          lastAction: store.lastAction
-        }
-      }
     }
   })
 
