@@ -65,10 +65,9 @@ export function devtools(app) {
         if (payload.app === app) {
           let stores = payload.componentInstance.proxy._nanostores
           stores.forEach((store, index) => {
-            let key = store.get().id || index
             payload.instanceData.state.push({
               type: 'Nanostores',
-              key,
+              key: index,
               editable: true,
               value: store.get()
             })
