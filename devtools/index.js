@@ -81,17 +81,19 @@ export function devtools(app) {
 
       api.on.editComponentState(payload => {
         if (payload.app === app && payload.type === 'Nanostores') {
-          let { path, state } = payload
-          let { newKey, remove, value } = state
-          let store = payload.componentInstance.proxy._nanostores[path[0]]
+          let {
+            path: [index, key],
+            state: { newKey, remove, value }
+          } = payload
+          let store = payload.componentInstance.proxy._nanostores[index]
           if (isAtom(store)) {
             store.set(value)
           } else {
-            if (remove) store.setKey(path[1], undefined)
+            if (remove) store.setKey(key, undefined)
             if (newKey) {
               store.setKey(newKey, value)
             } else {
-              store.setKey(path[1], value)
+              store.setKey(key, value)
             }
           }
         }
