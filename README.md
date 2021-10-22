@@ -16,20 +16,20 @@ with many atomic tree-shakable stores.
 
 ```vue
 <template>
-  <header>{{ currentUser.name }}</header>
+  <header>{{ post.title }} for {{ user.name }}</header>
 </template>
 
 <script>
   import { useStore } from '@nanostores/vue'
 
   import { profile } from '../stores/profile.js'
-  import { User } from '../stores/user.js'
+  import { Post } from '../stores/post.js'
 
   export default {
-    setup () {
-      const { userId } = useStore(profile).value
-      const currentUser = useStore(User(userId))
-      return { currentUser }
+    setup (props) {
+      const user = useStore(profile)
+      const post = useStore(Post(props.postId))
+      return { user, post }
     }
   }
 </script>
