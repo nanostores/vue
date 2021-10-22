@@ -70,7 +70,7 @@ export function devtools(app) {
           let stores = payload.componentInstance.proxy._nanostores
           stores.forEach((store, index) => {
             payload.instanceData.state.push({
-              type: 'Nanostores',
+              type: componentStateTypes[0],
               key: index,
               editable: true,
               value: store.get()
@@ -80,7 +80,7 @@ export function devtools(app) {
       })
 
       api.on.editComponentState(payload => {
-        if (payload.app === app && payload.type === 'Nanostores') {
+        if (payload.app === app && payload.type === componentStateTypes[0]) {
           let {
             path: [index, key],
             state: { newKey, remove, value }
