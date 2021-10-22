@@ -235,7 +235,7 @@ function createStoreLogger(app, api, store, storeName, nameGetter) {
 }
 
 const defaultNameGetter = (store, storeName) => {
-  return 'build' in store ? storeName : store.get().id
+  return 'build' in store ? storeName : store.get().id || storeName
 }
 
 export function attachStores(app, stores, opts = {}) {
