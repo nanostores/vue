@@ -105,7 +105,11 @@
       "global": {
         "statements": 100
       }
-    }
+    },
+    "coveragePathIgnorePatterns": [
+      "/node_modules/",
+      "/devtools/"
+    ]
   },
   "eslintConfig": {
     "extends": "@logux/eslint-config/esm"
