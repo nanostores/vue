@@ -19,6 +19,12 @@ export function useStore(store) {
   getCurrentInstance() && onBeforeUnmount(unsubscribe)
 
   if (process.env.NODE_ENV !== 'production') {
+    let instance = getCurrentInstance()
+    if (instance && instance.proxy) {
+      let vm = instance.proxy
+      let cache = '_nanostores' in vm ? vm._nanostores : (vm._nanostores = [])
+      cache.push(store)
+    }
     return readonly(state)
   }
   return state

@@ -61,17 +61,20 @@ export function devtools(app) {
         }
       })
 
-      // api.on.inspectComponent(payload => {
-      //   let stores = payload.componentInstance.proxy._nanostores
-      //   Object.values(stores).forEach(store => {
-      //     payload.instanceData.state.push({
-      //       type: 'Nanostores',
-      //       key: 'state',
-      //       editable: true,
-      //       value: store.get()
-      //     })
-      //   })
-      // })
+      api.on.inspectComponent(payload => {
+        if (payload.app === app) {
+          let stores = payload.componentInstance.proxy._nanostores
+          stores.forEach((store, index) => {
+            let key = store.get().id || index
+            payload.instanceData.state.push({
+              type: 'Nanostores',
+              key,
+              editable: true,
+              value: store.get()
+            })
+          })
+        }
+      })
     }
   )
 }
