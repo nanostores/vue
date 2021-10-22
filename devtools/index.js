@@ -19,6 +19,10 @@ function find(target, text) {
   return target.some(item => item.toLowerCase().includes(text.toLowerCase()))
 }
 
+function isAtom(store) {
+  return !('setKey' in store)
+}
+
 export function devtools(app) {
   setupDevtoolsPlugin(
     {
@@ -72,6 +76,24 @@ export function devtools(app) {
               value: store.get()
             })
           })
+        }
+      })
+
+      api.on.editComponentState(payload => {
+        if (payload.app === app && payload.type === 'Nanostores') {
+          let { path, state } = payload
+          let { newKey, remove, value } = state
+          let store = payload.componentInstance.proxy._nanostores[path[0]]
+          if (isAtom(store)) {
+            store.set(value)
+          } else {
+            if (remove) store.setKey(path[1], undefined)
+            if (newKey) {
+              store.setKey(newKey, value)
+            } else {
+              store.setKey(path[1], value)
+            }
+          }
         }
       })
     }
@@ -142,8 +164,6 @@ function createLogger(app, api, store, storeName) {
     })
   })
 
-  let isAtom = !('setKey' in store)
-
   api.on.getInspectorState(payload => {
     if (isValidPayload(payload, app, storeName)) {
       payload.state = {
@@ -153,7 +173,7 @@ function createLogger(app, api, store, storeName) {
           lastAction: store.lastAction
         }
       }
-      if (isAtom) {
+      if (isAtom(store)) {
         payload.state.state = [
           {
             key: 'value',
@@ -176,7 +196,7 @@ function createLogger(app, api, store, storeName) {
   api.on.editInspectorState(payload => {
     if (isValidPayload(payload, app, storeName)) {
       let { path, state } = payload
-      if (isAtom) {
+      if (isAtom(store)) {
         store.set(state.value)
       } else {
         store.setKey(path[0], state.value)
