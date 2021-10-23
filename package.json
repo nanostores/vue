@@ -137,7 +137,12 @@
       "Versioning",
       "Vue",
       "shakable",
-      "KB"
+      "KB",
+      "DevTools",
+      "lifecycle",
+      "MapTemplate",
+      "Devtools",
+      "nanostores"
     ]
   },
   "sharec": {
