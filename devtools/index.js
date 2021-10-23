@@ -67,7 +67,7 @@ export function devtools(app) {
 
       api.on.inspectComponent(payload => {
         if (payload.app === app) {
-          let stores = payload.componentInstance.proxy._nanostores
+          let stores = payload.componentInstance.proxy._nanostores || []
           stores.forEach((store, index) => {
             payload.instanceData.state.push({
               type: componentStateTypes[0],
