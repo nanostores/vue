@@ -230,13 +230,23 @@ function createTemplateLogger(app, api, template, templateName, nameGetter) {
   inspectorTree.push(inspectorNode)
 
   onBuild(template, ({ store }) => {
-    let storeId = `${templateName}:${store.get().id}`
+    let id = `${templateName}:${store.get().id}`
     let storeName = nameGetter(store, templateName)
-    createLogger(app, api, store, storeName)
-    inspectorNode.children?.push({
-      id: storeId,
-      label: storeName
+    api.addTimelineEvent({
+      layerId,
+      event: {
+        time: Date.now(),
+        title: storeName,
+        subtitle: `Built by ${templateName}`,
+        data: {
+          store: storeName,
+          event: 'Built',
+          by: templateName
+        }
+      }
     })
+    createLogger(app, api, store, storeName)
+    inspectorNode.children?.push({ id, label: storeName })
   })
 
   api.on.getInspectorState(payload => {
