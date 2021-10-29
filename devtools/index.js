@@ -35,7 +35,7 @@ export function devtools(app) {
     api.addTimelineLayer({
       id: layerId,
       label: 'Nanostores',
-      color: 0x0000ff
+      color: 0x1f49e0
     })
 
     api.addInspector({
