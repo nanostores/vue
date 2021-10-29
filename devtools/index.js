@@ -1,4 +1,11 @@
-import { lastAction, onBuild, onMount, onSet } from 'nanostores'
+import {
+  lastAction,
+  onBuild,
+  onSet,
+  onStart,
+  onStop,
+  STORE_UNMOUNT_DELAY
+} from 'nanostores'
 import { setupDevtoolsPlugin } from '@vue/devtools-api'
 
 const layerId = 'nanostores'
@@ -111,7 +118,7 @@ function isValidPayload(payload, app, storeName) {
 }
 
 function createLogger(app, api, store, storeName) {
-  onMount(store, () => {
+  onStart(store, () => {
     api.addTimelineEvent({
       layerId,
       event: {
@@ -124,7 +131,9 @@ function createLogger(app, api, store, storeName) {
         }
       }
     })
-    return () => {
+  })
+  onStop(store, () => {
+    setTimeout(() => {
       api.addTimelineEvent({
         layerId,
         event: {
@@ -137,7 +146,7 @@ function createLogger(app, api, store, storeName) {
           }
         }
       })
-    }
+    }, STORE_UNMOUNT_DELAY)
   })
 
   onSet(store, ({ changed, newValue }) => {
