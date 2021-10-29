@@ -218,7 +218,7 @@ function createLogger(app, api, store, storeName) {
 function createTemplateLogger(app, api, template, templateName, nameGetter) {
   let inspectorNode = {
     id: templateName,
-    label: nameGetter(template, templateName),
+    label: templateName,
     tags: [
       {
         label: 'Template',
@@ -231,12 +231,12 @@ function createTemplateLogger(app, api, template, templateName, nameGetter) {
   inspectorTree.push(inspectorNode)
 
   onBuild(template, ({ store }) => {
-    let storeId = store.get().id
-    let storeName = `${templateName}:${storeId}`
+    let storeId = `${templateName}:${store.get().id}`
+    let storeName = nameGetter(store, templateName)
     createLogger(app, api, store, storeName)
     inspectorNode.children?.push({
-      id: storeName,
-      label: nameGetter(store, storeName)
+      id: storeId,
+      label: storeName
     })
   })
 
@@ -257,17 +257,16 @@ function createTemplateLogger(app, api, template, templateName, nameGetter) {
   })
 }
 
-function createStoreLogger(app, api, store, storeName, nameGetter) {
+function createStoreLogger(app, api, store, storeName) {
   inspectorTree.push({
     id: storeName,
-    label: nameGetter(store, storeName)
+    label: storeName
   })
   createLogger(app, api, store, storeName)
 }
 
-const defaultNameGetter = (store, storeName) => {
-  return 'build' in store ? storeName : store.get().id || storeName
-}
+const defaultNameGetter = (store, templateName) =>
+  `${templateName}-${store.get().id}`
 
 export function attachStores(app, stores, opts = {}) {
   setupDevtoolsPlugin(
@@ -282,7 +281,7 @@ export function attachStores(app, stores, opts = {}) {
         if ('build' in store) {
           createTemplateLogger(app, api, store, storeName, nameGetter)
         } else {
-          createStoreLogger(app, api, store, storeName, nameGetter)
+          createStoreLogger(app, api, store, storeName)
         }
       })
     }

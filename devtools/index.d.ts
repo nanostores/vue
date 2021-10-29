@@ -6,7 +6,7 @@ export function devtools(app: App): void
 type AnyStore = Atom | MapStore | AnySyncTemplate
 
 export interface StoreNameGetter {
-  (store: AnyStore, storeName: string): string
+  (store: AnyStore, templateName: string): string
 }
 
 export function attachStores(
