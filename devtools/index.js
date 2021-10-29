@@ -222,7 +222,7 @@ function createTemplateLogger(app, api, template, templateName, nameGetter) {
       {
         label: 'Template',
         textColor: 0xffffff,
-        backgroundColor: 0x0000ff
+        backgroundColor: 0x1f49e0
       }
     ],
     children: []
