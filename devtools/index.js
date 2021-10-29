@@ -153,7 +153,6 @@ function createLogger(app, api, store, storeName) {
     api.sendInspectorState(inspectorId)
     api.notifyComponentUpdate()
 
-    let subtitle = 'Changed'
     let action = store[lastAction]
     let data = {
       action,
@@ -168,7 +167,7 @@ function createLogger(app, api, store, storeName) {
       event: {
         time: Date.now(),
         title: storeName,
-        subtitle,
+        subtitle: 'Changed',
         data
       }
     })
@@ -278,11 +277,9 @@ export function attachStores(app, stores, opts = {}) {
     api => {
       let nameGetter = opts?.nameGetter || defaultNameGetter
       Object.entries(stores).forEach(([storeName, store]) => {
-        if ('build' in store) {
-          createTemplateLogger(app, api, store, storeName, nameGetter)
-        } else {
-          createStoreLogger(app, api, store, storeName)
-        }
+        'build' in store
+          ? createTemplateLogger(app, api, store, storeName, nameGetter)
+          : createStoreLogger(app, api, store, storeName)
       })
     }
   )
