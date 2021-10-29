@@ -16,10 +16,10 @@ const pluginConfig = {
   packageName: '@nanostores/vue',
   homepage: 'https://github.com/nanostores',
   logo: 'https://nanostores.github.io/nanostores/logo.svg',
-  enableEarlyProxy: true
+  enableEarlyProxy: true,
+  componentStateTypes: ['Nanostores']
 }
 
-let componentStateTypes = ['Nanostores']
 let inspectorTree = []
 
 function find(target, text) {
@@ -31,82 +31,78 @@ function isAtom(store) {
 }
 
 export function devtools(app) {
-  setupDevtoolsPlugin(
-    {
-      ...pluginConfig,
-      componentStateTypes,
-      app
-    },
-    api => {
-      api.addTimelineLayer({
-        id: layerId,
-        label: 'Nanostores',
-        color: 0x0000ff
-      })
+  setupDevtoolsPlugin({ ...pluginConfig, app }, api => {
+    api.addTimelineLayer({
+      id: layerId,
+      label: 'Nanostores',
+      color: 0x0000ff
+    })
 
-      api.addInspector({
-        id: inspectorId,
-        label: 'Nanostores',
-        icon: 'storage',
-        treeFilterPlaceholder: 'Search for stores'
-      })
+    api.addInspector({
+      id: inspectorId,
+      label: 'Nanostores',
+      icon: 'storage',
+      treeFilterPlaceholder: 'Search for stores'
+    })
 
-      api.on.getInspectorTree(payload => {
-        if (payload.app === app && payload.inspectorId === inspectorId) {
-          payload.rootNodes = payload.filter
-            ? inspectorTree.filter(node => {
-                let target = [node.id, node.label]
-                if (node.tags && node.tags.length > 0) {
-                  target.push(node.tags[0].label)
-                }
-                let found = find(target, payload.filter)
-                let children
-                if (node.children) {
-                  children = node.children.some(childNode =>
-                    find([childNode.id, childNode.label], payload.filter)
-                  )
-                }
-                return found || children
-              })
-            : inspectorTree
-        }
-      })
-
-      api.on.inspectComponent(payload => {
-        if (payload.app === app) {
-          let stores = payload.componentInstance.proxy._nanostores || []
-          stores.forEach((store, index) => {
-            payload.instanceData.state.push({
-              type: componentStateTypes[0],
-              key: index,
-              editable: true,
-              value: store.get()
+    api.on.getInspectorTree(payload => {
+      if (payload.app === app && payload.inspectorId === inspectorId) {
+        payload.rootNodes = payload.filter
+          ? inspectorTree.filter(node => {
+              let target = [node.id, node.label]
+              if (node.tags && node.tags.length > 0) {
+                target.push(node.tags[0].label)
+              }
+              let found = find(target, payload.filter)
+              let children
+              if (node.children) {
+                children = node.children.some(childNode =>
+                  find([childNode.id, childNode.label], payload.filter)
+                )
+              }
+              return found || children
             })
-          })
-        }
-      })
+          : inspectorTree
+      }
+    })
 
-      api.on.editComponentState(payload => {
-        if (payload.app === app && payload.type === componentStateTypes[0]) {
-          let {
-            path: [index, key],
-            state: { newKey, remove, value }
-          } = payload
-          let store = payload.componentInstance.proxy._nanostores[index]
-          if (isAtom(store)) {
-            store.set(value)
+    api.on.inspectComponent(payload => {
+      if (payload.app === app) {
+        let stores = payload.componentInstance.proxy._nanostores || []
+        stores.forEach((store, index) => {
+          payload.instanceData.state.push({
+            type: pluginConfig.componentStateTypes[0],
+            key: index,
+            editable: true,
+            value: store.get()
+          })
+        })
+      }
+    })
+
+    api.on.editComponentState(payload => {
+      if (
+        payload.app === app &&
+        payload.type === pluginConfig.componentStateTypes[0]
+      ) {
+        let {
+          path: [index, key],
+          state: { newKey, remove, value }
+        } = payload
+        let store = payload.componentInstance.proxy._nanostores[index]
+        if (isAtom(store)) {
+          store.set(value)
+        } else {
+          if (remove) store.setKey(key, undefined)
+          if (newKey) {
+            store.setKey(newKey, value)
           } else {
-            if (remove) store.setKey(key, undefined)
-            if (newKey) {
-              store.setKey(newKey, value)
-            } else {
-              store.setKey(key, value)
-            }
+            store.setKey(key, value)
           }
         }
-      })
-    }
-  )
+      }
+    })
+  })
 }
 
 function isValidPayload(payload, app, storeName) {
@@ -278,19 +274,12 @@ const defaultNameGetter = (store, templateName) =>
   `${templateName}-${store.get().id}`
 
 export function attachStores(app, stores, opts = {}) {
-  setupDevtoolsPlugin(
-    {
-      ...pluginConfig,
-      componentStateTypes,
-      app
-    },
-    api => {
-      let nameGetter = opts?.nameGetter || defaultNameGetter
-      Object.entries(stores).forEach(([storeName, store]) => {
-        'build' in store
-          ? createTemplateLogger(app, api, store, storeName, nameGetter)
-          : createStoreLogger(app, api, store, storeName)
-      })
-    }
-  )
+  setupDevtoolsPlugin({ ...pluginConfig, app }, api => {
+    let nameGetter = opts.nameGetter || defaultNameGetter
+    Object.entries(stores).forEach(([storeName, store]) => {
+      'build' in store
+        ? createTemplateLogger(app, api, store, storeName, nameGetter)
+        : createStoreLogger(app, api, store, storeName)
+    })
+  })
 }
