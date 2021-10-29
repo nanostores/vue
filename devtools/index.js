@@ -1,10 +1,10 @@
 import {
+  STORE_UNMOUNT_DELAY,
   lastAction,
   onBuild,
-  onSet,
   onStart,
   onStop,
-  STORE_UNMOUNT_DELAY
+  onSet
 } from 'nanostores'
 import { setupDevtoolsPlugin } from '@vue/devtools-api'
 
