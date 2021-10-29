@@ -156,14 +156,13 @@ function createLogger(app, api, store, storeName) {
     let subtitle = 'Changed'
     let action = store[lastAction]
     let data = {
+      action,
+      key: changed,
       newValue,
       oldValue: store.get()
     }
-    if (changed) {
-      subtitle += `: ${changed}`
-      data.key = changed
-    }
-    if (action) data.action = action
+    if (typeof data.action === 'undefined') delete data.action
+    if (typeof data.key === 'undefined') delete data.key
     api.addTimelineEvent({
       layerId,
       event: {
