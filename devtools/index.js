@@ -120,10 +120,11 @@ function createLogger(app, api, store, storeName) {
       event: {
         time: Date.now(),
         title: storeName,
-        subtitle: 'Mounted',
+        subtitle: 'was mounted',
         data: {
-          store: storeName,
-          event: 'Mounted'
+          message: `${storeName} was mounted`,
+          storeName,
+          store
         }
       }
     })
@@ -135,10 +136,11 @@ function createLogger(app, api, store, storeName) {
         event: {
           time: Date.now(),
           title: storeName,
-          subtitle: 'Unmounted',
+          subtitle: 'was unmounted',
           data: {
-            store: storeName,
-            event: 'Unmounted'
+            message: `${storeName} was unmounted`,
+            storeName,
+            store
           }
         }
       })
@@ -163,7 +165,7 @@ function createLogger(app, api, store, storeName) {
       event: {
         time: Date.now(),
         title: storeName,
-        subtitle: 'Changed',
+        subtitle: 'was changed',
         data
       }
     })
@@ -233,11 +235,14 @@ function createTemplateLogger(app, api, template, templateName, nameGetter) {
       event: {
         time: Date.now(),
         title: storeName,
-        subtitle: `Built by ${templateName}`,
+        subtitle: `was built by ${templateName}`,
         data: {
-          store: storeName,
-          event: 'Built',
-          by: templateName
+          message: `${storeName} was built by ${templateName}`,
+          store,
+          by: {
+            templateName,
+            template
+          }
         }
       }
     })
