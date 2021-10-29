@@ -97,8 +97,8 @@ built from MapTemplate.
 
 ```js
 attachStores(app, { User }, {
-  nameGetter: (store, storeName) => {
-    return 'build' in store ? storeName : store.get().firstName || storeName
+  nameGetter: (store, templateName) => {
+    return store.get().firstName
   }
 })
 ```
