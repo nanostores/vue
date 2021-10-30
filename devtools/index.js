@@ -115,7 +115,9 @@ function isValidPayload(payload, app, storeName) {
 }
 
 function createLogger(app, api, store, storeName, groupId) {
-  onStart(store, () => {
+  api.sendInspectorTree(inspectorId)
+
+  let unbindStart = onStart(store, () => {
     api.addTimelineEvent({
       layerId,
       event: {
@@ -131,7 +133,8 @@ function createLogger(app, api, store, storeName, groupId) {
       }
     })
   })
-  onStop(store, () => {
+
+  let unbindStop = onStop(store, () => {
     setTimeout(() => {
       api.addTimelineEvent({
         layerId,
@@ -150,7 +153,7 @@ function createLogger(app, api, store, storeName, groupId) {
     }, STORE_UNMOUNT_DELAY)
   })
 
-  onSet(store, ({ changed, newValue }) => {
+  let unbindSet = onSet(store, ({ changed, newValue }) => {
     api.sendInspectorState(inspectorId)
     api.notifyComponentUpdate()
 
@@ -214,6 +217,12 @@ function createLogger(app, api, store, storeName, groupId) {
       }
     }
   })
+
+  return () => {
+    unbindStart()
+    unbindStop()
+    unbindSet()
+  }
 }
 
 function createTemplateLogger(app, api, template, templateName, nameGetter) {
@@ -250,8 +259,17 @@ function createTemplateLogger(app, api, template, templateName, nameGetter) {
         groupId
       }
     })
-    createLogger(app, api, store, storeName, groupId)
+    let nodeIndex = inspectorNode.children.length
     inspectorNode.children?.push({ id, label: storeName })
+    let destroyLogger = createLogger(app, api, store, storeName, groupId)
+    let unbindStop = onStop(store, () => {
+      setTimeout(() => {
+        inspectorNode.children.splice(nodeIndex, 1)
+        api.sendInspectorTree(inspectorId)
+        destroyLogger()
+        unbindStop()
+      }, STORE_UNMOUNT_DELAY)
+    })
   })
 
   api.on.getInspectorState(payload => {
@@ -281,7 +299,7 @@ function createStoreLogger(app, api, store, storeName) {
 }
 
 const defaultNameGetter = (store, templateName) =>
-  `${templateName}-${store.value.id}`
+  `${templateName}:${store.value.id}`
 
 export function attachStores(app, stores, opts = {}) {
   setupDevtoolsPlugin({ ...pluginConfig, app }, api => {
