@@ -20,6 +20,7 @@ const pluginConfig = {
   componentStateTypes: ['Nanostores']
 }
 
+let eventGroups = 0
 let inspectorTree = []
 
 function find(target, text) {
@@ -113,7 +114,7 @@ function isValidPayload(payload, app, storeName) {
   )
 }
 
-function createLogger(app, api, store, storeName) {
+function createLogger(app, api, store, storeName, groupId) {
   onStart(store, () => {
     api.addTimelineEvent({
       layerId,
@@ -125,7 +126,8 @@ function createLogger(app, api, store, storeName) {
           message: `${storeName} was mounted`,
           storeName,
           store
-        }
+        },
+        groupId
       }
     })
   })
@@ -141,7 +143,8 @@ function createLogger(app, api, store, storeName) {
             message: `${storeName} was unmounted`,
             storeName,
             store
-          }
+          },
+          groupId
         }
       })
     }, STORE_UNMOUNT_DELAY)
@@ -166,7 +169,8 @@ function createLogger(app, api, store, storeName) {
         time: Date.now(),
         title: storeName,
         subtitle: 'was changed',
-        data
+        data,
+        groupId
       }
     })
   })
@@ -230,6 +234,7 @@ function createTemplateLogger(app, api, template, templateName, nameGetter) {
   onBuild(template, ({ store }) => {
     let id = `${templateName}:${store.get().id}`
     let storeName = nameGetter(store, templateName)
+    let groupId = (eventGroups += 1)
     api.addTimelineEvent({
       layerId,
       event: {
@@ -243,10 +248,11 @@ function createTemplateLogger(app, api, template, templateName, nameGetter) {
             templateName,
             template
           }
-        }
+        },
+        groupId
       }
     })
-    createLogger(app, api, store, storeName)
+    createLogger(app, api, store, storeName, groupId)
     inspectorNode.children?.push({ id, label: storeName })
   })
 
@@ -272,7 +278,8 @@ function createStoreLogger(app, api, store, storeName) {
     id: storeName,
     label: storeName
   })
-  createLogger(app, api, store, storeName)
+  let groupId = (eventGroups += 1)
+  createLogger(app, api, store, storeName, groupId)
 }
 
 const defaultNameGetter = (store, templateName) =>
