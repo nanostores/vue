@@ -199,12 +199,15 @@ function createLogger(app, api, store, storeName, groupId) {
 
   api.on.getInspectorState(payload => {
     if (isValidPayload(payload, app, storeName)) {
+      let action = store[lastAction]
       payload.state = {
         state: {},
         store: {
-          listeners: store.lc,
-          lastAction: store.lastAction
+          listeners: store.lc
         }
+      }
+      if (action) {
+        payload.state.store.lastAction = action
       }
       if (isAtom(store)) {
         payload.state.state = [
