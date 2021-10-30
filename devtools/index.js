@@ -230,7 +230,7 @@ function createLogger(app, api, store, storeName, groupId, nodeId) {
   })
 
   api.on.editInspectorState(payload => {
-    if (isValidPayload(payload, app, nodeId)) {
+    if (isValidPayload(payload, app, nodeId) && store.active !== false) {
       let { path, state } = payload
       if (isAtom(store)) {
         store.set(state.value)
