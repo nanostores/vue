@@ -123,7 +123,7 @@ function createLogger(app, api, store, storeName, groupId) {
         title: storeName,
         subtitle: 'was mounted',
         data: {
-          message: `${storeName} was mounted`,
+          event: 'mount',
           storeName,
           store
         },
@@ -140,7 +140,7 @@ function createLogger(app, api, store, storeName, groupId) {
           title: storeName,
           subtitle: 'was unmounted',
           data: {
-            message: `${storeName} was unmounted`,
+            event: 'unmount',
             storeName,
             store
           },
@@ -242,7 +242,8 @@ function createTemplateLogger(app, api, template, templateName, nameGetter) {
         title: storeName,
         subtitle: `was built by ${templateName}`,
         data: {
-          message: `${storeName} was built by ${templateName}`,
+          event: `build`,
+          storeName,
           store,
           by: {
             templateName,
