@@ -281,7 +281,7 @@ function createStoreLogger(app, api, store, storeName) {
 }
 
 const defaultNameGetter = (store, templateName) =>
-  `${templateName}-${store.get().id}`
+  `${templateName}-${store.value.id}`
 
 export function attachStores(app, stores, opts = {}) {
   setupDevtoolsPlugin({ ...pluginConfig, app }, api => {
