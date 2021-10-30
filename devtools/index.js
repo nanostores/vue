@@ -245,10 +245,7 @@ function createTemplateLogger(app, api, template, templateName, nameGetter) {
           event: `build`,
           storeName,
           store,
-          by: {
-            templateName,
-            template
-          }
+          by: templateName
         },
         groupId
       }
