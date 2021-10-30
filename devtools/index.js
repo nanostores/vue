@@ -133,7 +133,7 @@ function isValidPayload(payload, app, storeName) {
   )
 }
 
-function createLogger(app, api, store, storeName, groupId) {
+function createLogger(app, api, store, storeName, groupId, nodeId) {
   api.sendInspectorTree(inspectorId)
 
   let unbindStart = onStart(store, () => {
@@ -198,7 +198,7 @@ function createLogger(app, api, store, storeName, groupId) {
   })
 
   api.on.getInspectorState(payload => {
-    if (isValidPayload(payload, app, storeName)) {
+    if (isValidPayload(payload, app, nodeId)) {
       let action = store[lastAction]
       payload.state = {
         state: {},
@@ -230,7 +230,7 @@ function createLogger(app, api, store, storeName, groupId) {
   })
 
   api.on.editInspectorState(payload => {
-    if (isValidPayload(payload, app, storeName)) {
+    if (isValidPayload(payload, app, nodeId)) {
       let { path, state } = payload
       if (isAtom(store)) {
         store.set(state.value)
@@ -287,7 +287,14 @@ function createTemplateLogger(app, api, template, templateName, nameGetter) {
         tags: []
       })
     }
-    let destroyLogger = createLogger(app, api, store, storeName, groupId)
+    let destroyLogger = createLogger(
+      app,
+      api,
+      store,
+      storeName,
+      groupId,
+      childId
+    )
     let unbindStop = onStop(store, () => {
       setTimeout(() => {
         if (settings.keepUnmounted) {
@@ -326,7 +333,7 @@ function createStoreLogger(app, api, store, storeName) {
     label: storeName
   })
   let groupId = (eventGroups += 1)
-  createLogger(app, api, store, storeName, groupId)
+  createLogger(app, api, store, storeName, groupId, storeName)
 }
 
 const defaultNameGetter = (store, templateName) =>
