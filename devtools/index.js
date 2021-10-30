@@ -16,8 +16,27 @@ const pluginConfig = {
   packageName: '@nanostores/vue',
   homepage: 'https://github.com/nanostores',
   logo: 'https://nanostores.github.io/nanostores/logo.svg',
+  settings: {
+    keepUnmounted: {
+      label: 'Keep unmounted',
+      type: 'boolean',
+      defaultValue: false
+    }
+  },
   enableEarlyProxy: true,
   componentStateTypes: ['Nanostores']
+}
+const tags = {
+  template: {
+    label: 'Template',
+    textColor: 0xffffff,
+    backgroundColor: 0xbb5100
+  },
+  unmounted: {
+    label: 'Unmounted',
+    textColor: 0xffffff,
+    backgroundColor: 0x5c5c5c
+  }
 }
 
 let eventGroups = 0
@@ -226,22 +245,17 @@ function createLogger(app, api, store, storeName, groupId) {
 }
 
 function createTemplateLogger(app, api, template, templateName, nameGetter) {
+  let settings = api.getSettings()
   let inspectorNode = {
     id: templateName,
     label: templateName,
-    tags: [
-      {
-        label: 'Template',
-        textColor: 0xffffff,
-        backgroundColor: 0xbb5100
-      }
-    ],
+    tags: [tags.template],
     children: []
   }
   inspectorTree.push(inspectorNode)
 
   onBuild(template, ({ store }) => {
-    let id = `${templateName}:${store.get().id}`
+    let childId = `${templateName}:${store.get().id}`
     let storeName = nameGetter(store, templateName)
     let groupId = (eventGroups += 1)
     api.addTimelineEvent({
@@ -259,12 +273,26 @@ function createTemplateLogger(app, api, template, templateName, nameGetter) {
         groupId
       }
     })
-    let nodeIndex = inspectorNode.children.length
-    inspectorNode.children?.push({ id, label: storeName })
+    let childIndex = inspectorNode.children.findIndex(i => i.id === childId)
+    if (childIndex > -1) {
+      inspectorNode.children[childIndex].tags = []
+    } else {
+      childIndex = inspectorNode.children.length
+      inspectorNode.children.push({
+        id: childId,
+        label: storeName,
+        tags: []
+      })
+    }
     let destroyLogger = createLogger(app, api, store, storeName, groupId)
     let unbindStop = onStop(store, () => {
       setTimeout(() => {
-        inspectorNode.children.splice(nodeIndex, 1)
+        if (settings.keepUnmounted) {
+          inspectorNode.children[childIndex].tags.push(tags.unmounted)
+        } else {
+          let index = inspectorNode.children.findIndex(i => i.id === childId)
+          index > -1 && inspectorNode.children.splice(index, 1)
+        }
         api.sendInspectorTree(inspectorId)
         destroyLogger()
         unbindStop()
