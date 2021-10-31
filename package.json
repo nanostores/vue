@@ -26,7 +26,7 @@
     "node": "^12.0.0 || ^14.0.0 || >=16.0.0"
   },
   "peerDependencies": {
-    "@vue/devtools-api": ">= 6.0.0-beta.19",
+    "@vue/devtools-api": ">=6.0.0-beta.19",
     "nanostores": "^0.5.4",
     "vue": ">=3.2.0"
   },
