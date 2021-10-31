@@ -38,7 +38,7 @@
   "devDependencies": {
     "@babel/core": "^7.16.0",
     "@logux/eslint-config": "^46.0.1",
-    "@logux/sharec-config": "^0.12.2",
+    "@logux/sharec-config": "^0.13.1",
     "@size-limit/preset-small-lib": "^6.0.4",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/vue": "^6.4.0",
@@ -71,7 +71,7 @@
     "yaspeller": "^8.0.0"
   },
   "simple-git-hooks": {
-    "pre-commit": "npx lint-staged"
+    "pre-commit": "./node_modules/.bin/lint-staged"
   },
   "prettier": {
     "arrowParens": "avoid",
@@ -147,6 +147,9 @@
   },
   "sharec": {
     "config": "@logux/sharec-config",
-    "version": "0.12.2"
+    "version": "0.13.1"
+  },
+  "clean-publish": {
+    "cleanDocs": true
   }
 }
