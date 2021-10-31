@@ -136,39 +136,46 @@ function isValidPayload(payload, app, id) {
 function createLogger(app, api, store, storeName, groupId, nodeId) {
   api.sendInspectorTree(inspectorId)
 
+  let mounted
   let unbindStart = onStart(store, () => {
-    api.addTimelineEvent({
-      layerId,
-      event: {
-        time: Date.now(),
-        title: storeName,
-        subtitle: 'was mounted',
-        data: {
-          event: 'mount',
-          storeName,
-          store
-        },
-        groupId
-      }
-    })
-  })
-
-  let unbindStop = onStop(store, () => {
-    setTimeout(() => {
+    if (!mounted) {
+      mounted = true
       api.addTimelineEvent({
         layerId,
         event: {
           time: Date.now(),
           title: storeName,
-          subtitle: 'was unmounted',
+          subtitle: 'was mounted',
           data: {
-            event: 'unmount',
+            event: 'mount',
             storeName,
             store
           },
           groupId
         }
       })
+    }
+  })
+
+  let unbindStop = onStop(store, () => {
+    setTimeout(() => {
+      if (mounted) {
+        mounted = false
+        api.addTimelineEvent({
+          layerId,
+          event: {
+            time: Date.now(),
+            title: storeName,
+            subtitle: 'was unmounted',
+            data: {
+              event: 'unmount',
+              storeName,
+              store
+            },
+            groupId
+          }
+        })
+      }
     }, STORE_UNMOUNT_DELAY)
   })
 
