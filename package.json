@@ -142,7 +142,8 @@
       "lifecycle",
       "MapTemplate",
       "Devtools",
-      "nanostores"
+      "nanostores",
+      "lifecycles"
     ]
   },
   "sharec": {

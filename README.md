@@ -43,7 +43,7 @@ npm install @nanostores/vue
 </script>
 ```
 
-## DevTools
+## Devtools
 
 ### Install
 
@@ -53,7 +53,7 @@ npm install --save-dev @vue/devtools-api
 
 ### Usage
 
-Install [Vue Devtools] plugin as usual and it will detect nanostores
+Install [Vue Devtools] plugin as usual. It will detect nanostores
 in selected component and add their states to the **component inspector**.
 
 ```js
@@ -66,8 +66,8 @@ const app = createApp(…)
 app.use(devtools)
 ```
 
-Attach nanostores to add them to the **nanostores inspector**
-and see their lifecycle on the **timeline**.
+Attach stores to add them to the **nanostores inspector**
+and see their builds, lifecycles and changes on the **timeline**.
 
 ```js
 import { createApp } from 'vue'
@@ -82,7 +82,7 @@ attachStores(app, { User })
 ```
 
 You can connect several stores in different places of your application
-and set them custom names to simplify the work with **nanostores inspector**.
+and set custom names to simplify the work with Devtools.
 
 ```js
 attachStores(app, {
@@ -91,17 +91,23 @@ attachStores(app, {
 })
 ```
 
-When working with MapTemplate, this may not be enough. You can create
-a custom `nameGetter` to set suitable names for each store
-built from MapTemplate.
+For `MapTemplate` you can create a custom `nameGetter`
+to set suitable names for each store built from template.
 
 ```js
 attachStores(app, { User }, {
   nameGetter: (store, templateName) => {
-    return store.get().firstName
+    let { firstName, lastName } = store.get()
+    return `${firstName} ${lastName}`
   }
 })
 ```
+
+### Settings
+
+By default, we removes unmounted stores from **nanostores inspector**
+to keep it clean. You can change this in the plugin settings
+via the **Keep unmounted** property.
 
 [Nano Stores]: https://github.com/nanostores/nanostores/
 [Vue Devtools]: https://devtools.vuejs.org
