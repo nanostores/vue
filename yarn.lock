@@ -4276,7 +4276,7 @@ nanospinner@^0.4.0:
   dependencies:
     picocolors "^1.0.0"
 
-nanostores@^0.5.0:
+nanostores@^0.5.4:
   version "0.5.4"
   resolved "https://registry.yarnpkg.com/nanostores/-/nanostores-0.5.4.tgz#ce9f9c02467b01cb3db988db07afa30ff17c8ff6"
   integrity sha512-EazPO2qaM2e5BwVm47n26C23Aw5+qVIkCaTVFgGcL6tdV0dnPqpmmVQay8EaTrFTTRkHzoJb2K0xFK0yjeBjBQ==
@@ -5885,7 +5885,7 @@ vfile@^5.0.0:
     unist-util-stringify-position "^3.0.0"
     vfile-message "^3.0.0"
 
-vue@^3.2.1:
+vue@^3.2.20:
   version "3.2.20"
   resolved "https://registry.yarnpkg.com/vue/-/vue-3.2.20.tgz#940f8aa8bf3e3be78243ca582bad41fcd45ae3e6"
   integrity sha512-81JjEP4OGk9oO8+CU0h2nFPGgJBm9mNa3kdCX2k6FuRdrWrC+CNe+tOnuIeTg8EWwQuI+wwdra5Q7vSzp7p4Iw==
