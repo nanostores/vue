@@ -125,11 +125,11 @@ export function devtools(app) {
   })
 }
 
-function isValidPayload(payload, app, storeName) {
+function isValidPayload(payload, app, id) {
   return (
     payload.app === app &&
     payload.inspectorId === inspectorId &&
-    payload.nodeId === storeName
+    payload.nodeId === id
   )
 }
 
