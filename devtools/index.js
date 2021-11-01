@@ -265,6 +265,7 @@ function createTemplateLogger(app, api, template, templateName, nameGetter) {
   inspectorTree.push(inspectorNode)
 
   onBuild(template, ({ store }) => {
+    let built = true
     let childId = `${templateName}:${store.get().id}`
     let storeName = nameGetter(store, templateName)
     let groupId = (eventGroups += 1)
@@ -304,16 +305,19 @@ function createTemplateLogger(app, api, template, templateName, nameGetter) {
     )
     let unbindStop = onStop(store, () => {
       setTimeout(() => {
-        if (settings.keepUnmounted) {
-          inspectorNode.children[childIndex].tags.push(tags.unmounted)
-        } else {
-          let index = inspectorNode.children.findIndex(i => i.id === childId)
-          index > -1 && inspectorNode.children.splice(index, 1)
+        if (built) {
+          built = false
+          if (settings.keepUnmounted) {
+            inspectorNode.children[childIndex].tags.push(tags.unmounted)
+          } else {
+            let index = inspectorNode.children.findIndex(i => i.id === childId)
+            index > -1 && inspectorNode.children.splice(index, 1)
+          }
+          api.sendInspectorTree(inspectorId)
+          destroyLogger()
+          unbindStop()
         }
-        api.sendInspectorTree(inspectorId)
-        destroyLogger()
-        unbindStop()
-      }, STORE_UNMOUNT_DELAY)
+      }, STORE_UNMOUNT_DELAY + 1)
     })
   })
 
