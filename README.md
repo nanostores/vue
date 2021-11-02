@@ -53,7 +53,7 @@ npm install --save-dev @vue/devtools-api
 
 ### Usage
 
-Install [Vue Devtools] plugin as usual. It will detect nanostores
+Install **[Vue Devtools]** plugin as usual. It will detect nanostores
 in selected component and add their states to the **component inspector**.
 
 ```js
