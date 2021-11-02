@@ -82,7 +82,7 @@ attachStores(app, { User })
 ```
 
 You can connect several stores in different places of your application
-and set custom names to simplify the work with Devtools.
+and set custom names to simplify the work with devtools.
 
 ```js
 attachStores(app, {
