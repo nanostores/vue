@@ -1,7 +1,7 @@
 # Change Log
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## Next
+## 0.2.1
 * Moved devtools to own export.
 
 ## 0.2.0
