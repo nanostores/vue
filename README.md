@@ -97,8 +97,7 @@ to set suitable names for each store built from template.
 ```js
 attachStores(app, { User }, {
   nameGetter: (store, templateName) => {
-    let { firstName, lastName } = store.get()
-    return `${firstName} ${lastName}`
+    return `User:${store.get().id}`
   }
 })
 ```
