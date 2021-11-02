@@ -58,7 +58,7 @@ in selected component and add their states to the **component inspector**.
 
 ```js
 import { createApp } from 'vue'
-import { devtools } from '@nanostores/vue'
+import { devtools } from '@nanostores/vue/devtools'
 
 import { User } from '../stores/user.js'
 
@@ -71,7 +71,7 @@ and see their builds, lifecycles and changes on the **timeline**.
 
 ```js
 import { createApp } from 'vue'
-import { devtools, attachStores } from '@nanostores/vue'
+import { devtools, attachStores } from '@nanostores/vue/devtools'
 
 import { User } from '../stores/user.js'
 
