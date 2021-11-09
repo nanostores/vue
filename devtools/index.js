@@ -86,10 +86,29 @@ export function devtools(app) {
       }
     })
 
+    let notifyComponentUpdate = (...args) => {
+      let last = 0
+      let now = Date.now()
+      if (now - last > 1000) {
+        api.notifyComponentUpdate(...args)
+        last = now
+      }
+    }
+
+    let unbindSet = []
     api.on.inspectComponent(payload => {
       if (payload.app === app) {
+        if (unbindSet.length > 0) {
+          for (let unbind of unbindSet) unbind()
+          unbindSet = []
+        }
         let stores = payload.componentInstance.proxy._nanostores || []
         stores.forEach((store, index) => {
+          unbindSet.push(
+            onSet(store, () => {
+              notifyComponentUpdate(payload.componentInstance)
+            })
+          )
           payload.instanceData.state.push({
             type: pluginConfig.componentStateTypes[0],
             key: index,
