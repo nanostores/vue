@@ -47,7 +47,7 @@ function find(target, text) {
 }
 
 function isAtom(store) {
-  return !('setKey' in store)
+  return typeof store.setKey === 'undefined'
 }
 
 export function devtools(app) {
