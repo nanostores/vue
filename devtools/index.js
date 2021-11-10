@@ -55,20 +55,17 @@ function isAtom(store) {
   return typeof store.setKey === 'undefined'
 }
 
-let getSettings = (app, api) => {
-  let settings = api.getSettings()
-  api.on.setPluginSettings(payload => {
-    if (payload.app === app && payload.pluginId === pluginConfig.id) {
-      settings[payload.key] = payload.newValue
-    }
-  })
-  return settings
+function notifyComponentUpdate(api, ...args) {
+  let last = 0
+  let now = Date.now()
+  if (now - last > 1000) {
+    api.notifyComponentUpdate(...args)
+    last = now
+  }
 }
 
 export function devtools(app) {
   setupDevtoolsPlugin({ ...pluginConfig, app }, api => {
-    let { realtimeUpdateDetected } = getSettings(app, api)
-
     api.addTimelineLayer({
       id: layerId,
       label: 'Nanostores',
@@ -103,18 +100,10 @@ export function devtools(app) {
       }
     })
 
-    let notifyComponentUpdate = (...args) => {
-      let last = 0
-      let now = Date.now()
-      if (now - last > 1000) {
-        api.notifyComponentUpdate(...args)
-        last = now
-      }
-    }
-
     let unbindSet = []
     api.on.inspectComponent(payload => {
       if (payload.app === app) {
+        let { realtimeUpdateDetected } = api.getSettings()
         if (unbindSet.length > 0) {
           for (let unbind of unbindSet) unbind()
           unbindSet = []
@@ -124,7 +113,7 @@ export function devtools(app) {
           if (realtimeUpdateDetected) {
             unbindSet.push(
               onSet(store, () => {
-                notifyComponentUpdate(payload.componentInstance)
+                notifyComponentUpdate(api, payload.componentInstance)
               })
             )
           }
@@ -230,7 +219,9 @@ function createLogger(app, api, store, storeName, groupId, nodeId) {
 
   let unbindSet = onSet(store, ({ changed, newValue }) => {
     api.sendInspectorState(inspectorId)
-    api.notifyComponentUpdate()
+    if (api.getSettings().realtimeUpdateDetected) {
+      notifyComponentUpdate(api)
+    }
 
     let action = store[lastAction]
     let data = {
@@ -301,7 +292,6 @@ function createLogger(app, api, store, storeName, groupId, nodeId) {
 }
 
 function createTemplateLogger(app, api, template, templateName, nameGetter) {
-  let { keepUnmounted } = getSettings(app, api)
   let inspectorNode = {
     id: templateName,
     label: templateName,
@@ -353,7 +343,7 @@ function createTemplateLogger(app, api, template, templateName, nameGetter) {
       setTimeout(() => {
         if (built) {
           built = false
-          if (keepUnmounted) {
+          if (api.getSettings().keepUnmounted) {
             inspectorNode.children[childIndex].tags.push(tags.unmounted)
           } else {
             let index = inspectorNode.children.findIndex(i => i.id === childId)
