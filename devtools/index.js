@@ -111,7 +111,7 @@ export function devtools(app) {
           )
           payload.instanceData.state.push({
             type: pluginConfig.componentStateTypes[0],
-            key: index,
+            key: index.toString(),
             editable: true,
             value: store.get()
           })
