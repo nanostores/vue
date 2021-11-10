@@ -1,7 +1,7 @@
 # Change Log
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## Next
+## 0.3.0
 * Devtools:
   * Added real-time updates of detected states.
   * Added better atom store editor.
@@ -9,6 +9,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
   * Disabled deep state editor.
   * Fixed store type detection.
   * Fixed broken simple state editor.
+* Updated dependencies.
 
 ## 0.2.1
 * Moved devtools to own export.
