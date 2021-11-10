@@ -4,6 +4,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## Next
 * Devtools
   * Added real-time updates of detected states
+  * Added better atom store editor
   * Fixed store type detection
   * Fixed broken simple state editor
 

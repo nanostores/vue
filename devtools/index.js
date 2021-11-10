@@ -130,7 +130,17 @@ export function devtools(app) {
         } = payload
         let store = payload.componentInstance.proxy._nanostores[index]
         if (isAtom(store)) {
-          store.set(value)
+          let oldValue = store.get()
+          let newValue = value
+          if (key) {
+            if (Array.isArray(oldValue)) {
+              newValue = oldValue
+              newValue[key] = value
+            } else {
+              newValue = { ...oldValue, [key]: value }
+            }
+          }
+          store.set(newValue)
         } else {
           if (remove) store.setKey(key, undefined)
           if (newKey) {
