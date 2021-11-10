@@ -17,6 +17,11 @@ const pluginConfig = {
   homepage: 'https://github.com/nanostores',
   logo: 'https://nanostores.github.io/nanostores/logo.svg',
   settings: {
+    realtimeUpdateDetected: {
+      label: 'Real-time update detected',
+      type: 'boolean',
+      defaultValue: true
+    },
     keepUnmounted: {
       label: 'Keep unmounted',
       type: 'boolean',
@@ -50,8 +55,20 @@ function isAtom(store) {
   return typeof store.setKey === 'undefined'
 }
 
+let getSettings = (app, api) => {
+  let settings = api.getSettings()
+  api.on.setPluginSettings(payload => {
+    if (payload.app === app && payload.pluginId === pluginConfig.id) {
+      settings[payload.key] = payload.newValue
+    }
+  })
+  return settings
+}
+
 export function devtools(app) {
   setupDevtoolsPlugin({ ...pluginConfig, app }, api => {
+    let { realtimeUpdateDetected } = getSettings(app, api)
+
     api.addTimelineLayer({
       id: layerId,
       label: 'Nanostores',
@@ -104,11 +121,13 @@ export function devtools(app) {
         }
         let stores = payload.componentInstance.proxy._nanostores || []
         stores.forEach((store, index) => {
-          unbindSet.push(
-            onSet(store, () => {
-              notifyComponentUpdate(payload.componentInstance)
-            })
-          )
+          if (realtimeUpdateDetected) {
+            unbindSet.push(
+              onSet(store, () => {
+                notifyComponentUpdate(payload.componentInstance)
+              })
+            )
+          }
           payload.instanceData.state.push({
             type: pluginConfig.componentStateTypes[0],
             key: index.toString(),
@@ -282,7 +301,7 @@ function createLogger(app, api, store, storeName, groupId, nodeId) {
 }
 
 function createTemplateLogger(app, api, template, templateName, nameGetter) {
-  let settings = api.getSettings()
+  let { keepUnmounted } = getSettings(app, api)
   let inspectorNode = {
     id: templateName,
     label: templateName,
@@ -334,7 +353,7 @@ function createTemplateLogger(app, api, template, templateName, nameGetter) {
       setTimeout(() => {
         if (built) {
           built = false
-          if (settings.keepUnmounted) {
+          if (keepUnmounted) {
             inspectorNode.children[childIndex].tags.push(tags.unmounted)
           } else {
             let index = inspectorNode.children.findIndex(i => i.id === childId)
