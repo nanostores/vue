@@ -142,6 +142,7 @@ export function devtools(app) {
           }
           store.set(newValue)
         } else {
+          if (payload.path.length > 2) return
           if (remove) store.setKey(key, undefined)
           if (newKey) {
             store.setKey(newKey, value)
