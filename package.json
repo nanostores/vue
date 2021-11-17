@@ -120,11 +120,20 @@
   ],
   "size-limit": [
     {
+      "name": "useStore",
       "import": {
         "index.js": "{ useStore }",
         "nanostores": "{ map, computed }"
       },
       "limit": "717 B"
+    },
+    {
+      "name": "useStore + useVModel",
+      "import": {
+        "index.js": "{ useStore, useVModel }",
+        "nanostores": "{ map, computed }"
+      },
+      "limit": "768 B"
     }
   ],
   "yaspeller": {
