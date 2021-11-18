@@ -129,12 +129,12 @@
       "limit": "663 B"
     },
     {
-      "name": "useStore + useVModel",
+      "name": "useStore + helpers",
       "import": {
-        "index.js": "{ useStore, useVModel }",
+        "index.js": "{ useStore, useVModel, mapStores }",
         "nanostores": "{ map, computed }"
       },
-      "limit": "714 B"
+      "limit": "749 B"
     }
   ],
   "yaspeller": {
