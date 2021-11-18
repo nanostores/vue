@@ -46,7 +46,7 @@
     "@types/jest": "^27.0.2",
     "@typescript-eslint/eslint-plugin": "^5.3.1",
     "@typescript-eslint/parser": "^5.3.1",
-    "@vue/compiler-sfc": "^3.2.21",
+    "@vue/compiler-sfc": "^3.2.22",
     "@vue/devtools-api": "^6.0.0-beta.20",
     "check-dts": "^0.6.3",
     "clean-publish": "^3.4.3",
@@ -68,7 +68,7 @@
     "size-limit": "^7.0.0",
     "ts-jest": "^27.0.7",
     "typescript": "^4.4.4",
-    "vue": "^3.2.21",
+    "vue": "^3.2.22",
     "yaspeller": "^8.0.0"
   },
   "simple-git-hooks": {
