@@ -41,6 +41,7 @@
     "@logux/eslint-config": "46.0.1",
     "@logux/sharec-config": "^0.13.1",
     "@size-limit/preset-small-lib": "^7.0.0",
+    "@size-limit/webpack": "^7.0.0",
     "@testing-library/jest-dom": "^5.15.0",
     "@testing-library/vue": "^6.4.0",
     "@types/jest": "^27.0.2",
@@ -125,7 +126,7 @@
         "index.js": "{ useStore }",
         "nanostores": "{ map, computed }"
       },
-      "limit": "717 B"
+      "limit": "663 B"
     },
     {
       "name": "useStore + useVModel",
@@ -133,7 +134,7 @@
         "index.js": "{ useStore, useVModel }",
         "nanostores": "{ map, computed }"
       },
-      "limit": "768 B"
+      "limit": "714 B"
     }
   ],
   "yaspeller": {
