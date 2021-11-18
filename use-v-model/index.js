@@ -1,6 +1,6 @@
 import { computed } from 'vue'
 
-import { useStore } from '../composable/index.js'
+import { useStore } from '../use-store/index.js'
 
 export function useVModel(store, key) {
   let state = useStore(store)
