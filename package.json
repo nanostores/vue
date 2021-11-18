@@ -1,6 +1,6 @@
 {
   "name": "@nanostores/vue",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "Vue integration for Nano Stores, a tiny state manager with many atomic tree-shakable stores",
   "keywords": [
     "store",
