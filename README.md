@@ -46,7 +46,7 @@ npm install @nanostores/vue
 ### Form handling
 
 Since the store state is deep read-only, you cannot directly mutate it.
-But for `v-model` you can use `useVModel(store, key)`. It will
+But for `v-model` you can use `useVModel(store, keys, opts)`. It will
 explicitly mutate the store via `store.set()` / `store.setKey()`.
 
 ```vue
@@ -56,7 +56,6 @@ explicitly mutate the store via `store.set()` / `store.setKey()`.
 
 <script>
   import { useVModel } from '@nanostores/vue'
-
   import { profile } from '../stores/profile.js'
 
   export default {
@@ -66,6 +65,21 @@ explicitly mutate the store via `store.set()` / `store.setKey()`.
     }
   }
 </script>
+```
+
+To create multiple models, the `keys` argument must be an array of keys.
+Each model will be prefixed with `Model`. You can change it via `opts.prefix`.
+
+```js
+export default {
+  setup () {
+    const {
+      firstNameModel,
+      lastNameModel
+    } = useVModel(user, ['firstName', 'lastName'])
+    return { firstNameModel, lastNameModel }
+  }
+}
 ```
 
 ## Devtools
