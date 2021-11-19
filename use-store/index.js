@@ -1,7 +1,7 @@
-import { getCurrentInstance, onBeforeUnmount, readonly, ref } from 'vue'
+import { getCurrentInstance, onBeforeUnmount, readonly, shallowRef } from 'vue'
 
 export function useStore(store) {
-  let state = ref()
+  let state = shallowRef()
 
   if (process.env.NODE_ENV !== 'production') {
     if (typeof store === 'function') {
