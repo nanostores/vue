@@ -51,8 +51,7 @@ it('renders map store', async () => {
       <input v-model="lastModel" data-testid="last"/>
     `,
     setup: () => ({
-      firstModel: useVModel(store, 'first'),
-      lastModel: useVModel(store, 'last')
+      ...useVModel(store, ['first', 'last'])
     })
   })
 

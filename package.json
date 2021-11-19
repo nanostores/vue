@@ -133,7 +133,7 @@
         "index.js": "{ useStore, useVModel, mapStores }",
         "nanostores": "{ map, computed }"
       },
-      "limit": "861 B"
+      "limit": "931 B"
     }
   ],
   "yaspeller": {
