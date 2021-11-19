@@ -43,6 +43,28 @@ npm install @nanostores/vue
 </script>
 ```
 
+### Multiple stores
+
+```vue
+<template>
+  <header>{{ project.name }} / {{ user.name }}</header>
+</template>
+
+<script>
+  import { mapStores } from '@nanostores/vue'
+  import { project } from '../stores/project.js'
+  import { user } from '../stores/user.js'
+
+  export default {
+    setup () {
+      return {
+        ...mapStores({ project, user })
+      }
+    }
+  }
+</script>
+```
+
 ### Form handling
 
 Since the store state is deep read-only, you cannot directly mutate it.

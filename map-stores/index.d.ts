@@ -12,10 +12,11 @@ type use = ReturnType<typeof useStore>
  *
  * ```html
  * <template>
- *   <header>{{ project.name }} by {{ user.name }}</header>
+ *   <header>{{ project.name }} / {{ user.name }}</header>
  * </template>
  *
  * <script>
+ * import { mapStores } from '@nanostores/vue'
  * import { project } from '../stores/project.js'
  * import { user } from '../stores/user.js'
  *
