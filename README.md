@@ -110,7 +110,7 @@ Each model will be prefixed with `Model`. You can change it via `opts.prefix`.
   export default {
     setup () {
       return {
-        ...useVModel(user, ['firstName', 'lastName'])
+        ...useVModel(profile, ['firstName', 'lastName'])
       }
     }
   }
