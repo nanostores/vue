@@ -6,11 +6,13 @@
 Vue integration for **[Nano Stores]**, a tiny state manager
 with many atomic tree-shakable stores.
 
-* **Small.** Less than 1 KB. Zero dependencies.
+* **Small.** Less than 1 KB with all helpers. Zero dependencies.
 * **Fast.** With small atomic and derived stores, you do not need to call
   the selector function for all components on every store change.
 * **Tree Shakable.** The chunk contains only stores used by components
   in the chunk.
+* **Helpers.** To save a few keystrokes and keep code clean.
+* **Devtools.** Plugin with full support of [Vue Devtools].
 * Was designed to move logic from components to stores.
 * It has good **TypeScript** support.
 
