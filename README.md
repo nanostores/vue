@@ -119,6 +119,10 @@ Each model will be prefixed with `Model`. You can change it via `opts.prefix`.
 
 ## Devtools
 
+<p align="center">
+  <img src="img/screenshot.jpg" alt="Nanostores Vue Devtools screenshot" width="830">
+</p>
+
 ### Install
 
 ```sh
