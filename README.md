@@ -24,7 +24,7 @@ npm install @nanostores/vue
 
 ### Store state
 
-Subscribes to store changes and returns reactive store state.
+Subscribe to store changes and use reactive store state.
 
 ```vue
 <template>
@@ -48,7 +48,7 @@ Subscribes to store changes and returns reactive store state.
 
 ### Multiple store states
 
-Generates multiple store states to save us a few keystrokes.
+Generate multiple store states and save a few keystrokes.
 
 ```vue
 <template>
