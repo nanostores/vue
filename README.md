@@ -146,7 +146,7 @@ const app = createApp(…)
 app.use(devtools)
 ```
 
-#### Timeline and Store Inspector
+#### Timeline and Inspector
 
 Attach stores to add them to the **nanostores inspector**
 and see their builds, lifecycles and changes on the **timeline**.
