@@ -91,7 +91,7 @@ const app = createApp(…)
 app.use(devtools)
 ```
 
-> Notice: if you using SSR, there is no Vue DevTools on server. Check it's a browser environment: `if (!SERVER) app.use(devtools)`
+> Notice: if you are using SSR, there is no Vue Devtools on server. Check it’s a browser environment: `if (window) app.use(devtools)`
 
 Attach stores to add them to the **nanostores inspector**
 and see their builds, lifecycles and changes on the **timeline**.
