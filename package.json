@@ -39,7 +39,6 @@
   "devDependencies": {
     "@babel/core": "^7.16.0",
     "@logux/eslint-config": "46.0.1",
-    "@logux/sharec-config": "^0.13.1",
     "@size-limit/preset-small-lib": "^7.0.3",
     "@testing-library/jest-dom": "^5.16.0",
     "@testing-library/vue": "^6.4.0",
@@ -60,7 +59,7 @@
     "eslint-plugin-security": "^1.4.0",
     "eslint-plugin-unicorn": "^39.0.0",
     "jest": "^27.4.3",
-    "lint-staged": "^12.1.2",
+    "nano-staged": "^0.4.1",
     "nanodelay": "^2.0.2",
     "nanostores": "^0.5.7",
     "prettier": "^2.5.1",
@@ -68,11 +67,10 @@
     "size-limit": "^7.0.3",
     "ts-jest": "^27.0.7",
     "typescript": "^4.5.2",
-    "vue": "^3.2.23",
-    "yaspeller": "^8.0.0"
+    "vue": "^3.2.23"
   },
   "simple-git-hooks": {
-    "pre-commit": "./node_modules/.bin/lint-staged"
+    "pre-commit": "./node_modules/.bin/nano-staged"
   },
   "prettier": {
     "arrowParens": "avoid",
@@ -82,13 +80,8 @@
     "singleQuote": true,
     "trailingComma": "none"
   },
-  "lint-staged": {
-    "*.md": "yaspeller",
-    "*.js": [
-      "prettier --write",
-      "eslint --fix"
-    ],
-    "*.ts": [
+  "nano-staged": {
+    "*.{js,ts}": [
       "prettier --write",
       "eslint --fix"
     ]
@@ -136,32 +129,6 @@
       "limit": "931 B"
     }
   ],
-  "yaspeller": {
-    "lang": "en",
-    "ignoreCapitalization": true,
-    "ignoreText": [
-      " \\(by [^)]+\\).",
-      "\\d+\\.\\d+ “[^”]+”"
-    ],
-    "dictionary": [
-      "Versioning",
-      "Vue",
-      "shakable",
-      "KB",
-      "DevTools",
-      "lifecycle",
-      "MapTemplate",
-      "devtools",
-      "nanostores",
-      "lifecycles",
-      "composable",
-      "SSR"
-    ]
-  },
-  "sharec": {
-    "config": "@logux/sharec-config",
-    "version": "0.13.1"
-  },
   "clean-publish": {
     "cleanDocs": true
   }
