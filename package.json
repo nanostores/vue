@@ -154,7 +154,8 @@
       "devtools",
       "nanostores",
       "lifecycles",
-      "composable"
+      "composable",
+      "SSR"
     ]
   },
   "sharec": {

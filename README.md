@@ -148,7 +148,11 @@ const app = createApp(…)
 app.use(devtools)
 ```
 
-#### Timeline and Inspector
+> Notice: if you are using SSR, there is no Vue Devtools on server.
+> Check it’s a browser environment:
+> ```js
+> if (window) app.use(devtools)
+> ```
 
 Attach stores to add them to the **nanostores inspector**
 and see their builds, lifecycles and changes on the **timeline**.
