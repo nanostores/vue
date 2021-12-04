@@ -9,7 +9,7 @@
     "vue"
   ],
   "scripts": {
-    "test": "node --experimental-vm-modules node_modules/.bin/jest --coverage && eslint . && check-dts && size-limit && yaspeller *.md",
+    "test": "node --experimental-vm-modules node_modules/.bin/jest --coverage && eslint . && check-dts && size-limit",
     "test:watch": "node --experimental-vm-modules node_modules/.bin/jest --watch"
   },
   "author": "Eduard Aksamitov <e@edaks.co>",
