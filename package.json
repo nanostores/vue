@@ -21,6 +21,7 @@
   "exports": {
     ".": "./index.js",
     "./devtools": "./devtools/index.js",
+    "./use-store": "./use-store/index.js",
     "./package.json": "./package.json"
   },
   "engines": {
