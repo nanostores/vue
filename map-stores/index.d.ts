@@ -1,11 +1,7 @@
+import { AnySyncTemplate, StoreValue, MapStore, Atom } from 'nanostores'
 import { DeepReadonly, Ref } from 'vue'
-import { StoreValue } from 'nanostores'
-
-import { useStore } from '../use-store/index.js'
 
 type AnyStore = Atom | MapStore | AnySyncTemplate
-
-type use = ReturnType<typeof useStore>
 
 /**
  * Generates object with multiple store states via `useStore()`.
