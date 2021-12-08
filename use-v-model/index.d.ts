@@ -3,8 +3,8 @@ import { Ref } from 'vue'
 
 type UnwarpKeys<Keys> = Keys extends (infer Key)[] ? Key : Keys
 
-interface UseVModelOptions {
-  prefix: string
+interface UseVModelOptions<Prefix extends string> {
+  prefix: Prefix
 }
 
 /**
@@ -37,15 +37,16 @@ interface UseVModelOptions {
 export function useVModel<
   SomeStore extends Store,
   Value extends StoreValue<SomeStore>,
-  Keys extends keyof Value | (keyof Value)[] = undefined
+  Keys extends keyof Value | (keyof Value)[] = undefined,
+  Prefix extends string = 'Model'
 >(
   store: SomeStore,
   keys?: Keys,
-  opts?: UseVModelOptions
+  opts?: UseVModelOptions<Prefix>
 ): Keys extends undefined
   ? Ref<Value>
   : Keys extends (keyof Value)[]
   ? {
-      [Key in UnwarpKeys<Keys>]: Ref<Value[Key]>
+      [Key in UnwarpKeys<Keys> as `${Key}${Prefix}`]: Ref<Value[Key]>
     }
   : Ref<Value[Keys]>

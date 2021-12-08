@@ -16,6 +16,9 @@ let mapModel = useVModel(mapStore)
 let mapKeyState = useVModel(mapStore, 'letter')
 // THROWS not assignable to parameter
 let mapKeysState = useVModel(mapStore, ['letter', 'number'], { test: 'a' })
+let mapKeysStatePrefixed = useVModel(mapStore, ['letter', 'number'], {
+  prefix: 'Test'
+})
 
 // THROWS does not exist
 mapModel.value.other = 'b'
@@ -23,6 +26,11 @@ mapModel.value.other = 'b'
 mapKeyState.value = 1
 
 // THROWS not assignable to type 'string'
-mapKeysState.letter.value = 0
+mapKeysState.letterModel.value = 0
 // THROWS does not exist
-mapKeysState.other.value
+mapKeysState.letter.value
+// THROWS does not exist
+mapKeysState.otherModel.value
+
+// THROWS does not exist
+mapKeysStatePrefixed.letter.value
