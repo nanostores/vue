@@ -1,6 +1,10 @@
 # Change Log
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 0.5.2
+* Fixed `attachStores()` types.
+* Updated dependencies.
+
 ## 0.5.1
 * Fixed missing types for prefix in `useVModel()`.
 
