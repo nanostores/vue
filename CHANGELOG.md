@@ -1,6 +1,10 @@
 # Change Log
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 0.5.3
+* Improved `useStore()` effect disposing.
+* Migrated to pnpm.
+
 ## 0.5.2
 * Fixed `attachStores()` types.
 * Updated dependencies.
