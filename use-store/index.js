@@ -1,4 +1,10 @@
-import { getCurrentInstance, onBeforeUnmount, readonly, shallowRef } from 'vue'
+import {
+  getCurrentInstance,
+  getCurrentScope,
+  onScopeDispose,
+  readonly,
+  shallowRef
+} from 'vue'
 
 export function useStore(store) {
   let state = shallowRef()
@@ -16,7 +22,7 @@ export function useStore(store) {
     state.value = value
   })
 
-  getCurrentInstance() && onBeforeUnmount(unsubscribe)
+  getCurrentScope() && onScopeDispose(unsubscribe)
 
   if (process.env.NODE_ENV !== 'production') {
     let instance = getCurrentInstance()
