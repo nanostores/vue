@@ -1,7 +1,7 @@
-import { AnySyncTemplate, Atom, MapStore } from 'nanostores'
+import { AnySyncTemplate, MapTemplate, Store } from 'nanostores'
 import { App } from 'vue'
 
-type AnyStore = Atom | MapStore | AnySyncTemplate
+type AnyStore = Store | MapTemplate | AnySyncTemplate
 
 export interface StoreNameGetter {
   (store: AnyStore, templateName: string): string
