@@ -9,8 +9,8 @@
     "vue"
   ],
   "scripts": {
-    "test": "node --experimental-vm-modules node_modules/.bin/jest --coverage && eslint . && check-dts && size-limit",
-    "test:watch": "node --experimental-vm-modules node_modules/.bin/jest --watch"
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --coverage && eslint . && check-dts && size-limit",
+    "test:watch": "node --experimental-vm-modules node_modules/jest/bin/jest.js --watch"
   },
   "author": "Eduard Aksamitov <e@edaks.co>",
   "license": "MIT",
