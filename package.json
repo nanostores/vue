@@ -118,7 +118,7 @@
         "index.js": "{ useStore }",
         "nanostores": "{ map, computed }"
       },
-      "limit": "776 B"
+      "limit": "764 B"
     },
     {
       "name": "useStore + helpers",
@@ -126,7 +126,7 @@
         "index.js": "{ useStore, useVModel, mapStores }",
         "nanostores": "{ map, computed }"
       },
-      "limit": "937 B"
+      "limit": "923 B"
     }
   ],
   "clean-publish": {
