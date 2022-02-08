@@ -15,15 +15,5 @@ let stores = mapStores({
 
 // THROWS does not exist
 stores.atomStore
-// THROWS not assignable to type 'Ref<string>'
+// THROWS not assignable to type 'Readonly<Ref<string>>'
 stores.stringAtomStore = ''
-// THROWS not assignable to type 'string'
-stores.stringAtomStore.value = 0
-// THROWS not assignable to type 'number'
-stores.numberAtomStore.value = 'a'
-// THROWS 'letter' is missing
-stores.letterAtomStore.value = {}
-// THROWS it is a read-only
-stores.letterAtomStore.value.letter = 'b'
-// THROWS it is a read-only
-stores.letterMapStore.value.letter = 'b'
