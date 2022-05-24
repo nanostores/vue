@@ -12,7 +12,7 @@
     "test": "vitest run --coverage && eslint . && check-dts && size-limit",
     "test:watch": "vitest watch"
   },
-  "author": "Eduard Aksamitov <e@edaks.co>",
+  "author": "Eduard Aksamitov <e@euaaaio.ru>",
   "license": "MIT",
   "repository": "nanostores/vue",
   "sideEffects": false,
