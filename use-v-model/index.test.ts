@@ -1,11 +1,10 @@
-import '@testing-library/jest-dom/extend-expect'
 import { fireEvent, render, screen } from '@testing-library/vue'
 import { defineComponent, nextTick } from 'vue'
 import { atom, map, onMount } from 'nanostores'
 
 import { useVModel } from './index.js'
 
-it('renders simple store', async () => {
+test('renders simple store', async () => {
   let store = atom('')
 
   onMount(store, () => {
@@ -20,7 +19,7 @@ it('renders simple store', async () => {
   })
 
   render(Component)
-  let input = screen.getByTestId('test') as HTMLInputElement
+  let input = screen.getByTestId<HTMLInputElement>('test')
   expect(input.value).toBe('Kazimir Malevich')
 
   await fireEvent.update(input, 'Lazar Khidekel')
@@ -32,7 +31,7 @@ it('renders simple store', async () => {
   expect(input.value).toBe('Lyubov Popova')
 })
 
-it('renders map store', async () => {
+test('renders map store', async () => {
   let events: string[] = []
   let store = map<{ first: string; last: string }>()
 
@@ -56,8 +55,8 @@ it('renders map store', async () => {
   })
 
   render(Component)
-  let first = screen.getByTestId('first') as HTMLInputElement
-  let last = screen.getByTestId('last') as HTMLInputElement
+  let first = screen.getByTestId<HTMLInputElement>('first')
+  let last = screen.getByTestId<HTMLInputElement>('last')
   expect(first.value).toBe('Kazimir')
   expect(last.value).toBe('Malevich')
 

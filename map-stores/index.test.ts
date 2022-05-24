@@ -1,11 +1,10 @@
-import '@testing-library/jest-dom/extend-expect'
-import { render, screen } from '@testing-library/vue'
 import { defineComponent, h, nextTick } from 'vue'
+import { render, screen } from '@testing-library/vue'
 import { atom, map } from 'nanostores'
 
 import { mapStores } from './index.js'
 
-it('has mapStores helper', async () => {
+test('has mapStores helper', async () => {
   let renders = 0
 
   let stringAtomStore = atom('0')
@@ -36,13 +35,13 @@ it('has mapStores helper', async () => {
   })
 
   render(Component)
-  expect(screen.getByTestId('test')).toHaveTextContent('0 1 a b')
+  expect(screen.getByTestId('test').textContent).toBe('0 1 a b')
 
   stringAtomStore.set('1')
   numberAtomStore.set(2)
   letterAtomStore.set({ letter: 'b' })
   letterMapStore.setKey('letter', 'c')
   await nextTick()
-  expect(screen.getByTestId('test')).toHaveTextContent('1 2 b c')
+  expect(screen.getByTestId('test').textContent).toBe('1 2 b c')
   expect(renders).toBe(2)
 })

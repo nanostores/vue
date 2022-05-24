@@ -1,4 +1,3 @@
-import '@testing-library/jest-dom/extend-expect'
 import {
   STORE_UNMOUNT_DELAY,
   mapTemplate,
@@ -6,14 +5,13 @@ import {
   atom,
   map
 } from 'nanostores'
-import Vue, { Component } from 'vue'
-import VueTesting from '@testing-library/vue'
+import { defineComponent, computed, nextTick, ref, h, Component } from 'vue'
+import { cleanup, render, screen } from '@testing-library/vue'
 import { delay } from 'nanodelay'
 
 import { useStore } from './index.js'
 
-let { defineComponent, computed, nextTick, ref, h } = Vue
-let { render, screen } = VueTesting
+afterEach(cleanup)
 
 function getCatcher(cb: () => void): [string[], Component] {
   let errors: string[] = []
@@ -28,7 +26,7 @@ function getCatcher(cb: () => void): [string[], Component] {
   return [errors, Catcher]
 }
 
-it('throws on template instead of store', () => {
+test('throws on template instead of store', () => {
   let Test = (): void => {}
   let [errors, Catcher] = getCatcher(() => {
     // @ts-expect-error
@@ -41,7 +39,7 @@ it('throws on template instead of store', () => {
   ])
 })
 
-it('renders simple store', async () => {
+test('renders simple store', async () => {
   let events: string[] = []
   let renders = 0
 
@@ -84,28 +82,28 @@ it('renders simple store', async () => {
 
   render(Wrapper)
   expect(events).toEqual(['constructor'])
-  expect(screen.getByTestId('test1')).toHaveTextContent('a')
-  expect(screen.getByTestId('test2')).toHaveTextContent('a')
+  expect(screen.getByTestId('test1').textContent).toBe('a')
+  expect(screen.getByTestId('test2').textContent).toBe('a')
   expect(renders).toBe(1)
 
   letterStore.set('b')
   letterStore.set('c')
   await nextTick()
 
-  expect(screen.getByTestId('test1')).toHaveTextContent('c')
-  expect(screen.getByTestId('test2')).toHaveTextContent('c')
+  expect(screen.getByTestId('test1').textContent).toBe('c')
+  expect(screen.getByTestId('test2').textContent).toBe('c')
   expect(renders).toBe(2)
 
   screen.getByRole('button').click()
   await nextTick()
-  expect(screen.queryByTestId('test')).not.toBeInTheDocument()
+  expect(screen.queryByTestId('test')).toBe(null)
   expect(renders).toBe(2)
   await delay(STORE_UNMOUNT_DELAY)
 
   expect(events).toEqual(['constructor', 'destroy'])
 })
 
-it('renders map store', async () => {
+test('renders map store', async () => {
   let events: string[] = []
   let renders = 0
 
@@ -134,18 +132,18 @@ it('renders map store', async () => {
 
   render(Wrapper)
   expect(events).toEqual(['constructor'])
-  expect(screen.getByTestId('test')).toHaveTextContent('Aleister Crowley')
+  expect(screen.getByTestId('test').textContent).toBe('Aleister Crowley')
   expect(renders).toBe(1)
 
   nameStore.setKey('first', 'Anton')
   nameStore.setKey('last', 'Lavey')
   await nextTick()
 
-  expect(screen.getByTestId('test')).toHaveTextContent('Anton Lavey')
+  expect(screen.getByTestId('test').textContent).toBe('Anton Lavey')
   expect(renders).toBe(2)
 })
 
-it('does not reload store on component changes', async () => {
+test('does not reload store on component changes', async () => {
   let destroyed = ''
   let simple = atom<string>()
 
@@ -204,16 +202,16 @@ it('does not reload store on component changes', async () => {
   })
 
   render(Switcher)
-  expect(screen.getByTestId('test')).toHaveTextContent('1 S M')
+  expect(screen.getByTestId('test').textContent).toBe('1 S M')
 
   screen.getByRole('button').click()
   await nextTick()
-  expect(screen.getByTestId('test')).toHaveTextContent('2 S M')
+  expect(screen.getByTestId('test').textContent).toBe('2 S M')
   expect(destroyed).toBe('')
 
   screen.getByRole('button').click()
   await nextTick()
-  expect(screen.queryByTestId('test')).not.toBeInTheDocument()
+  expect(screen.queryByTestId('test')).toBe(null)
   expect(destroyed).toBe('')
 
   await delay(STORE_UNMOUNT_DELAY)
