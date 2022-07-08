@@ -33,11 +33,12 @@ test('renders simple store', async () => {
 
 test('renders map store', async () => {
   let events: string[] = []
-  let store = map<{ first: string; last: string }>()
+  let store = map<{ first: string; last: string; user: string }>()
 
   onMount(store, () => {
     store.setKey('first', 'Kazimir')
     store.setKey('last', 'Malevich')
+    store.setKey('user', 'Suprematist')
   })
 
   store.listen((value, key) => {
@@ -48,24 +49,32 @@ test('renders map store', async () => {
     template: `
       <input v-model="firstModel" data-testid="first"/>
       <input v-model="lastModel" data-testid="last"/>
+      <input v-model="userModel" data-testid="user"/>
     `,
     setup: () => ({
-      ...useVModel(store, ['first', 'last'])
+      ...useVModel(store, ['first', 'last']),
+      userModel: useVModel(store, 'user')
     })
   })
 
   render(Component)
   let first = screen.getByTestId<HTMLInputElement>('first')
   let last = screen.getByTestId<HTMLInputElement>('last')
+  let user = screen.getByTestId<HTMLInputElement>('user')
   expect(first.value).toBe('Kazimir')
   expect(last.value).toBe('Malevich')
+  expect(user.value).toBe('Suprematist')
 
   await fireEvent.update(first, 'Lazar')
   expect(first.value).toBe('Lazar')
 
   await fireEvent.update(last, 'Khidekel')
   expect(last.value).toBe('Khidekel')
-  expect(store.get()).toEqual({ first: 'Lazar', last: 'Khidekel' })
+  expect(store.get()).toEqual({
+    first: 'Lazar',
+    last: 'Khidekel',
+    user: 'Suprematist'
+  })
 
   store.setKey('first', 'Lyubov')
   await nextTick()
@@ -75,5 +84,8 @@ test('renders map store', async () => {
   await nextTick()
   expect(last.value).toBe('Popova')
 
-  expect(events).toEqual(['Lazar', 'Khidekel', 'Lyubov', 'Popova'])
+  await fireEvent.update(user, 'Cubist')
+  expect(user.value).toBe('Cubist')
+
+  expect(events).toEqual(['Lazar', 'Khidekel', 'Lyubov', 'Popova', 'Cubist'])
 })
