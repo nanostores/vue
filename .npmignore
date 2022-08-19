@@ -1,5 +1,6 @@
 pnpm-lock.yaml
 tsconfig.json
+vitest.config.ts
 
 coverage/
 img/
