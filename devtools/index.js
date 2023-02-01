@@ -249,7 +249,7 @@ function createLogger(app, api, store, storeName, groupId, nodeId) {
       payload.state = {
         state: {},
         store: {
-          acitve: store.acitve,
+          active: store.active,
           listeners: store.lc
         }
       }
