@@ -1,6 +1,9 @@
 # Change Log
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 0.7.0
+* Moved to Nano Stores 0.7.
+
 ## 0.6.0
 * Moved to Nano Stores 0.6.
 * Migrated test to Vitest with improved coverage.
