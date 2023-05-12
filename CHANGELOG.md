@@ -1,6 +1,9 @@
 # Change Log
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 0.8.1
+* Fixed broken export for `registerStore`.
+
 ## 0.8.0
 * Moved to Nano Stores 0.8.
 * Dropped Node.js 14 support.

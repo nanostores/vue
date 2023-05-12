@@ -1,6 +1,6 @@
 {
   "name": "@nanostores/vue",
-  "version": "0.8.0",
+  "version": "0.8.1",
   "description": "Vue integration for Nano Stores, a tiny state manager with many atomic tree-shakable stores",
   "keywords": [
     "store",
@@ -97,7 +97,7 @@
         "index.js": "{ useStore }",
         "nanostores": "{ map, computed }"
       },
-      "limit": "879 B"
+      "limit": "885 B"
     },
     {
       "name": "useStore + helpers",
@@ -105,7 +105,7 @@
         "index.js": "{ useStore, useVModel, mapStores }",
         "nanostores": "{ map, computed }"
       },
-      "limit": "1049 B"
+      "limit": "1047 B"
     }
   ],
   "clean-publish": {
