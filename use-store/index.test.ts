@@ -1,11 +1,5 @@
-import {
-  STORE_UNMOUNT_DELAY,
-  mapTemplate,
-  onMount,
-  atom,
-  map
-} from 'nanostores'
 import { defineComponent, computed, nextTick, ref, h, Component } from 'vue'
+import { STORE_UNMOUNT_DELAY, onMount, atom, map } from 'nanostores'
 import { cleanup, render, screen } from '@testing-library/vue'
 import { delay } from 'nanodelay'
 
@@ -154,23 +148,15 @@ test('does not reload store on component changes', async () => {
     }
   })
 
-  let Map = mapTemplate<{ id: string }>((store, id) => {
-    return () => {
-      destroyed += id
-    }
-  })
-
   let TestA = defineComponent(() => {
     let simpleStore = useStore(simple)
-    let mapStore = useStore(Map('M'))
-    let text = computed(() => `1 ${simpleStore.value} ${mapStore.value.id}`)
+    let text = computed(() => `1 ${simpleStore.value}`)
     return () => h('div', { 'data-testid': 'test' }, text.value)
   })
 
   let TestB = defineComponent(() => {
     let simpleStore = useStore(simple)
-    let mapStore = useStore(Map('M'))
-    let text = computed(() => `2 ${simpleStore.value} ${mapStore.value.id}`)
+    let text = computed(() => `2 ${simpleStore.value}`)
     return () => h('div', { 'data-testid': 'test' }, text.value)
   })
 
@@ -202,11 +188,11 @@ test('does not reload store on component changes', async () => {
   })
 
   render(Switcher)
-  expect(screen.getByTestId('test').textContent).toBe('1 S M')
+  expect(screen.getByTestId('test').textContent).toBe('1 S')
 
   screen.getByRole('button').click()
   await nextTick()
-  expect(screen.getByTestId('test').textContent).toBe('2 S M')
+  expect(screen.getByTestId('test').textContent).toBe('2 S')
   expect(destroyed).toBe('')
 
   screen.getByRole('button').click()
@@ -215,5 +201,5 @@ test('does not reload store on component changes', async () => {
   expect(destroyed).toBe('')
 
   await delay(STORE_UNMOUNT_DELAY)
-  expect(destroyed).toBe('SM')
+  expect(destroyed).toBe('S')
 })
