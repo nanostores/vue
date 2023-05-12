@@ -36,3 +36,11 @@ export function attachStores(
     nameGetter?: StoreNameGetter
   }
 ): void
+
+/**
+ * Registers the store for the component inspector
+ *
+ * @param store Any store
+ * @private
+ */
+export function registerStore(store: AnyStore): void

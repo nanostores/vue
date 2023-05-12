@@ -5,6 +5,10 @@ export default defineConfig({
   plugins: [vue()],
   test: {
     globals: true,
-    environment: 'happy-dom'
+    environment: 'happy-dom',
+    coverage: {
+      include: ['use-store/**', 'map-stores/**', 'use-v-model/**'],
+      100: true
+    }
   }
 })

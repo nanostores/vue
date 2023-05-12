@@ -1,10 +1,6 @@
-import {
-  getCurrentInstance,
-  getCurrentScope,
-  onScopeDispose,
-  readonly,
-  shallowRef
-} from 'vue'
+import { getCurrentScope, onScopeDispose, readonly, shallowRef } from 'vue'
+
+import { registerStore } from '../devtools/index.js'
 
 export function useStore(store) {
   let state = shallowRef()
@@ -25,12 +21,7 @@ export function useStore(store) {
   getCurrentScope() && onScopeDispose(unsubscribe)
 
   if (process.env.NODE_ENV !== 'production') {
-    let instance = getCurrentInstance()
-    if (instance && instance.proxy) {
-      let vm = instance.proxy
-      let cache = '_nanostores' in vm ? vm._nanostores : (vm._nanostores = [])
-      cache.push(store)
-    }
+    registerStore(store)
     return readonly(state)
   }
   return state
