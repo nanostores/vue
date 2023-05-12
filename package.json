@@ -1,6 +1,6 @@
 {
   "name": "@nanostores/vue",
-  "version": "0.7.0",
+  "version": "0.8.0",
   "description": "Vue integration for Nano Stores, a tiny state manager with many atomic tree-shakable stores",
   "keywords": [
     "store",
@@ -28,7 +28,7 @@
   },
   "peerDependencies": {
     "@vue/devtools-api": ">=6.1.4",
-    "nanostores": ">=0.7.3",
+    "nanostores": ">=0.8.1",
     "vue": ">=3.3.1"
   },
   "peerDependenciesMeta": {
