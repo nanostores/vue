@@ -7,7 +7,6 @@ import {
   onSet
 } from 'nanostores'
 import { setupDevtoolsPlugin } from '@vue/devtools-api'
-import { getCurrentInstance } from 'vue'
 
 const layerId = 'nanostores'
 const inspectorId = 'nanostores'
@@ -396,13 +395,4 @@ export function attachStores(app, stores, opts = {}) {
         : createStoreLogger(app, api, store, storeName)
     })
   })
-}
-
-export function registerStore(store) {
-  let instance = getCurrentInstance()
-  if (instance && instance.proxy) {
-    let vm = instance.proxy
-    let cache = '_nanostores' in vm ? vm._nanostores : (vm._nanostores = [])
-    cache.push(store)
-  }
 }

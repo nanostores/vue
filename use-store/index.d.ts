@@ -24,10 +24,18 @@ import { Store, StoreValue } from 'nanostores'
  * </script>
  * ```
  *
- * @param store Store instance.
- * @returns Store value.
+ * @param store Store instance
+ * @returns Store value
  */
 export function useStore<
   SomeStore extends Store,
   Value extends StoreValue<SomeStore>
 >(store: SomeStore): DeepReadonly<Ref<Value>>
+
+/**
+ * Registers the store for the devtools component inspector.
+ *
+ * @param store Store instance
+ * @private
+ */
+export function registerStore(store: AnyStore): void
