@@ -1,6 +1,9 @@
 # Change Log
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 0.9.0
+* Moved to Nano Stores 0.9.
+
 ## 0.8.2
 * Fixed broken export for `registerStore`.
 
