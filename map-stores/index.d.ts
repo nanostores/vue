@@ -1,5 +1,5 @@
-import { AnySyncTemplate, StoreValue, MapStore, Atom } from 'nanostores'
-import { DeepReadonly, Ref } from 'vue'
+import type { AnySyncTemplate, StoreValue, MapStore, Atom } from 'nanostores'
+import type { DeepReadonly, Ref } from 'vue'
 
 type AnyStore = Atom | MapStore | AnySyncTemplate
 

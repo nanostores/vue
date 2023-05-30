@@ -1,5 +1,5 @@
-import { DeepReadonly, Ref } from 'vue'
-import { Store, StoreValue } from 'nanostores'
+import type { Store, StoreValue } from 'nanostores'
+import type { DeepReadonly, Ref } from 'vue'
 
 /**
  * Subscribes to store changes and gets store’s value.

@@ -1,5 +1,5 @@
-import { Store, StoreValue } from 'nanostores'
-import { Ref } from 'vue'
+import type { Store, StoreValue } from 'nanostores'
+import type { Ref } from 'vue'
 
 type UnwarpKeys<Keys> = Keys extends (infer Key)[] ? Key : Keys
 

@@ -1,5 +1,5 @@
-import { AnySyncTemplate, MapTemplate, Store } from 'nanostores'
-import { App } from 'vue'
+import type { AnySyncTemplate, MapTemplate, Store } from 'nanostores'
+import type { App } from 'vue'
 
 type AnyStore = Store | MapTemplate | AnySyncTemplate
 

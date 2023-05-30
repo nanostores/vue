@@ -1,4 +1,6 @@
-import { defineComponent, computed, nextTick, ref, h, Component } from 'vue'
+import type { Component } from 'vue'
+
+import { defineComponent, computed, nextTick, ref, h } from 'vue'
 import { STORE_UNMOUNT_DELAY, onMount, atom, map } from 'nanostores'
 import { cleanup, render, screen } from '@testing-library/vue'
 import { delay } from 'nanodelay'
