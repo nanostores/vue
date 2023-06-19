@@ -178,7 +178,6 @@ attachStores(app, {
   Post
 })
 ```
-```
 
 ### Settings
 
