@@ -1,6 +1,6 @@
 import { fireEvent, render, screen } from '@testing-library/vue'
-import { defineComponent, nextTick } from 'vue'
 import { atom, map, onMount } from 'nanostores'
+import { defineComponent, nextTick } from 'vue'
 
 import { useVModel } from './index.js'
 
@@ -12,10 +12,10 @@ test('renders simple store', async () => {
   })
 
   let Component = defineComponent({
-    template: '<input v-model="state" data-testid="test"/>',
     setup: () => ({
       state: useVModel(store)
-    })
+    }),
+    template: '<input v-model="state" data-testid="test"/>'
   })
 
   render(Component)
@@ -46,15 +46,15 @@ test('renders map store', async () => {
   })
 
   let Component = defineComponent({
+    setup: () => ({
+      ...useVModel(store, ['first', 'last']),
+      userModel: useVModel(store, 'user')
+    }),
     template: `
       <input v-model="firstModel" data-testid="first"/>
       <input v-model="lastModel" data-testid="last"/>
       <input v-model="userModel" data-testid="user"/>
-    `,
-    setup: () => ({
-      ...useVModel(store, ['first', 'last']),
-      userModel: useVModel(store, 'user')
-    })
+    `
   })
 
   render(Component)

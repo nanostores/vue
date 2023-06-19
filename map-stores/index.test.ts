@@ -1,6 +1,6 @@
-import { defineComponent, h, nextTick } from 'vue'
 import { render, screen } from '@testing-library/vue'
 import { atom, map } from 'nanostores'
+import { defineComponent, h, nextTick } from 'vue'
 
 import { mapStores } from './index.js'
 
@@ -14,15 +14,15 @@ test('has mapStores helper', async () => {
 
   let Component = defineComponent(() => {
     let {
-      stringAtomStore: s1,
-      numberAtomStore: s2,
       letterAtomStore: s3,
-      letterMapStore: s4
+      letterMapStore: s4,
+      numberAtomStore: s2,
+      stringAtomStore: s1
     } = mapStores({
-      stringAtomStore,
-      numberAtomStore,
       letterAtomStore,
-      letterMapStore
+      letterMapStore,
+      numberAtomStore,
+      stringAtomStore
     })
     return () => {
       renders += 1

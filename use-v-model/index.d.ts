@@ -37,7 +37,7 @@ interface UseVModelOptions<Prefix extends string> {
 export function useVModel<
   SomeStore extends Store,
   Value extends StoreValue<SomeStore>,
-  Keys extends keyof Value | (keyof Value)[] = undefined,
+  Keys extends (keyof Value)[] | keyof Value = undefined,
   Prefix extends string = 'Model'
 >(
   store: SomeStore,

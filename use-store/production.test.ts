@@ -1,9 +1,10 @@
-import { defineComponent, isReadonly } from 'vue'
-import { expect, test } from 'vitest'
+import './set-production.js'
+
 import { render } from '@testing-library/vue'
 import { atom } from 'nanostores'
+import { expect, test } from 'vitest'
+import { defineComponent, isReadonly } from 'vue'
 
-import './set-production.js'
 import { useStore } from './index.js'
 
 test('returns writable state in production', () => {

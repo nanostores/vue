@@ -1,7 +1,7 @@
 import type { AnySyncTemplate, MapTemplate, Store } from 'nanostores'
 import type { App } from 'vue'
 
-type AnyStore = Store | MapTemplate | AnySyncTemplate
+type AnyStore = AnySyncTemplate | MapTemplate | Store
 
 export interface StoreNameGetter {
   (store: AnyStore, templateName: string): string

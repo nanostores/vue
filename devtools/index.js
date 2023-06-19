@@ -1,46 +1,46 @@
+import { setupDevtoolsPlugin } from '@vue/devtools-api'
 import {
-  STORE_UNMOUNT_DELAY,
   lastAction,
   onBuild,
+  onSet,
   onStart,
   onStop,
-  onSet
+  STORE_UNMOUNT_DELAY
 } from 'nanostores'
-import { setupDevtoolsPlugin } from '@vue/devtools-api'
 
 const layerId = 'nanostores'
 const inspectorId = 'nanostores'
 const pluginConfig = {
+  componentStateTypes: ['Nanostores'],
+  enableEarlyProxy: true,
+  homepage: 'https://github.com/nanostores',
   id: 'io.github.nanostores',
   label: 'Nanostores',
-  packageName: '@nanostores/vue',
-  homepage: 'https://github.com/nanostores',
   logo: 'https://nanostores.github.io/nanostores/logo.svg',
+  packageName: '@nanostores/vue',
   settings: {
-    realtimeUpdateDetected: {
-      label: 'Real-time update detected',
-      type: 'boolean',
-      defaultValue: true
-    },
     keepUnmounted: {
+      defaultValue: false,
       label: 'Keep unmounted',
-      type: 'boolean',
-      defaultValue: false
+      type: 'boolean'
+    },
+    realtimeUpdateDetected: {
+      defaultValue: true,
+      label: 'Real-time update detected',
+      type: 'boolean'
     }
-  },
-  enableEarlyProxy: true,
-  componentStateTypes: ['Nanostores']
+  }
 }
 const tags = {
   template: {
+    backgroundColor: 0xbb5100,
     label: 'Template',
-    textColor: 0xffffff,
-    backgroundColor: 0xbb5100
+    textColor: 0xffffff
   },
   unmounted: {
+    backgroundColor: 0x5c5c5c,
     label: 'Unmounted',
-    textColor: 0xffffff,
-    backgroundColor: 0x5c5c5c
+    textColor: 0xffffff
   }
 }
 
@@ -67,15 +67,15 @@ function notifyComponentUpdate(api, ...args) {
 export function devtools(app) {
   setupDevtoolsPlugin({ ...pluginConfig, app }, api => {
     api.addTimelineLayer({
+      color: 0x1f49e0,
       id: layerId,
-      label: 'Nanostores',
-      color: 0x1f49e0
+      label: 'Nanostores'
     })
 
     api.addInspector({
+      icon: 'storage',
       id: inspectorId,
       label: 'Nanostores',
-      icon: 'storage',
       treeFilterPlaceholder: 'Search for stores'
     })
 
@@ -118,9 +118,9 @@ export function devtools(app) {
             )
           }
           payload.instanceData.state.push({
-            type: pluginConfig.componentStateTypes[0],
-            key: index.toString(),
             editable: true,
+            key: index.toString(),
+            type: pluginConfig.componentStateTypes[0],
             value: store.get()
           })
         })
@@ -179,18 +179,18 @@ function createLogger(app, api, store, storeName, groupId, nodeId) {
     if (!mounted) {
       mounted = true
       api.addTimelineEvent({
-        layerId,
         event: {
-          time: Date.now(),
-          title: storeName,
-          subtitle: 'was mounted',
           data: {
             event: 'mount',
-            storeName,
-            store
+            store,
+            storeName
           },
-          groupId
-        }
+          groupId,
+          subtitle: 'was mounted',
+          time: Date.now(),
+          title: storeName
+        },
+        layerId
       })
     }
   })
@@ -200,18 +200,18 @@ function createLogger(app, api, store, storeName, groupId, nodeId) {
       if (mounted) {
         mounted = false
         api.addTimelineEvent({
-          layerId,
           event: {
-            time: Date.now(),
-            title: storeName,
-            subtitle: 'was unmounted',
             data: {
               event: 'unmount',
-              storeName,
-              store
+              store,
+              storeName
             },
-            groupId
-          }
+            groupId,
+            subtitle: 'was unmounted',
+            time: Date.now(),
+            title: storeName
+          },
+          layerId
         })
       }
     }, STORE_UNMOUNT_DELAY)
@@ -233,14 +233,14 @@ function createLogger(app, api, store, storeName, groupId, nodeId) {
     if (typeof data.action === 'undefined') delete data.action
     if (typeof data.key === 'undefined') delete data.key
     api.addTimelineEvent({
-      layerId,
       event: {
-        time: Date.now(),
-        title: storeName,
-        subtitle: 'was changed',
         data,
-        groupId
-      }
+        groupId,
+        subtitle: 'was changed',
+        time: Date.now(),
+        title: storeName
+      },
+      layerId
     })
   })
 
@@ -256,17 +256,17 @@ function createLogger(app, api, store, storeName, groupId, nodeId) {
       if (isAtom(store)) {
         payload.state.state = [
           {
+            editable: true,
             key: 'value',
-            value: store.get(),
-            editable: true
+            value: store.get()
           }
         ]
       } else {
         payload.state.state = Object.entries(store.get()).map(
           ([key, value]) => ({
+            editable: true,
             key,
-            value,
-            editable: true
+            value
           })
         )
       }
@@ -293,10 +293,10 @@ function createLogger(app, api, store, storeName, groupId, nodeId) {
 
 function createTemplateLogger(app, api, template, templateName, nameGetter) {
   let inspectorNode = {
+    children: [],
     id: templateName,
     label: templateName,
-    tags: [tags.template],
-    children: []
+    tags: [tags.template]
   }
   inspectorTree.push(inspectorNode)
 
@@ -306,19 +306,19 @@ function createTemplateLogger(app, api, template, templateName, nameGetter) {
     let storeName = nameGetter(store, templateName)
     let groupId = (eventGroups += 1)
     api.addTimelineEvent({
-      layerId,
       event: {
-        time: Date.now(),
-        title: storeName,
-        subtitle: `was built by ${templateName}`,
         data: {
+          by: templateName,
           event: `build`,
-          storeName,
           store,
-          by: templateName
+          storeName
         },
-        groupId
-      }
+        groupId,
+        subtitle: `was built by ${templateName}`,
+        time: Date.now(),
+        title: storeName
+      },
+      layerId
     })
     let childIndex = inspectorNode.children.findIndex(i => i.id === childId)
     if (childIndex > -1) {
@@ -360,12 +360,12 @@ function createTemplateLogger(app, api, template, templateName, nameGetter) {
   api.on.getInspectorState(payload => {
     if (isValidPayload(payload, app, templateName)) {
       payload.state = {
+        cache: template.cache,
         template: {
+          offline: template.offline,
           plural: template.plural,
-          remote: template.remote,
-          offline: template.offline
-        },
-        cache: template.cache
+          remote: template.remote
+        }
       }
       if (template.filters) {
         payload.state.template.filters = template.filters
