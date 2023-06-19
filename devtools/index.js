@@ -1,7 +1,6 @@
 import { setupDevtoolsPlugin } from '@vue/devtools-api'
 import {
   lastAction,
-  onBuild,
   onSet,
   onStart,
   onStop,
@@ -29,18 +28,6 @@ const pluginConfig = {
       label: 'Real-time update detected',
       type: 'boolean'
     }
-  }
-}
-const tags = {
-  template: {
-    backgroundColor: 0xbb5100,
-    label: 'Template',
-    textColor: 0xffffff
-  },
-  unmounted: {
-    backgroundColor: 0x5c5c5c,
-    label: 'Unmounted',
-    textColor: 0xffffff
   }
 }
 
@@ -291,89 +278,6 @@ function createLogger(app, api, store, storeName, groupId, nodeId) {
   }
 }
 
-function createTemplateLogger(app, api, template, templateName, nameGetter) {
-  let inspectorNode = {
-    children: [],
-    id: templateName,
-    label: templateName,
-    tags: [tags.template]
-  }
-  inspectorTree.push(inspectorNode)
-
-  onBuild(template, ({ store }) => {
-    let built = true
-    let childId = `${templateName}:${store.get().id}`
-    let storeName = nameGetter(store, templateName)
-    let groupId = (eventGroups += 1)
-    api.addTimelineEvent({
-      event: {
-        data: {
-          by: templateName,
-          event: `build`,
-          store,
-          storeName
-        },
-        groupId,
-        subtitle: `was built by ${templateName}`,
-        time: Date.now(),
-        title: storeName
-      },
-      layerId
-    })
-    let childIndex = inspectorNode.children.findIndex(i => i.id === childId)
-    if (childIndex > -1) {
-      inspectorNode.children[childIndex].tags = []
-    } else {
-      childIndex = inspectorNode.children.length
-      inspectorNode.children.push({
-        id: childId,
-        label: storeName,
-        tags: []
-      })
-    }
-    let destroyLogger = createLogger(
-      app,
-      api,
-      store,
-      storeName,
-      groupId,
-      childId
-    )
-    let unbindStop = onStop(store, () => {
-      setTimeout(() => {
-        if (built) {
-          built = false
-          if (api.getSettings().keepUnmounted) {
-            inspectorNode.children[childIndex].tags.push(tags.unmounted)
-          } else {
-            let index = inspectorNode.children.findIndex(i => i.id === childId)
-            index > -1 && inspectorNode.children.splice(index, 1)
-          }
-          api.sendInspectorTree(inspectorId)
-          destroyLogger()
-          unbindStop()
-        }
-      }, STORE_UNMOUNT_DELAY + 1)
-    })
-  })
-
-  api.on.getInspectorState(payload => {
-    if (isValidPayload(payload, app, templateName)) {
-      payload.state = {
-        cache: template.cache,
-        template: {
-          offline: template.offline,
-          plural: template.plural,
-          remote: template.remote
-        }
-      }
-      if (template.filters) {
-        payload.state.template.filters = template.filters
-      }
-    }
-  })
-}
-
 function createStoreLogger(app, api, store, storeName) {
   inspectorTree.push({
     id: storeName,
@@ -383,16 +287,10 @@ function createStoreLogger(app, api, store, storeName) {
   createLogger(app, api, store, storeName, groupId, storeName)
 }
 
-const defaultNameGetter = (store, templateName) =>
-  `${templateName}:${store.get().id}`
-
-export function attachStores(app, stores, opts = {}) {
+export function attachStores(app, stores) {
   setupDevtoolsPlugin({ ...pluginConfig, app }, api => {
-    let nameGetter = opts.nameGetter || defaultNameGetter
     Object.entries(stores).forEach(([storeName, store]) => {
-      'build' in store
-        ? createTemplateLogger(app, api, store, storeName, nameGetter)
-        : createStoreLogger(app, api, store, storeName)
+      createStoreLogger(app, api, store, storeName)
     })
   })
 }

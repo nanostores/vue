@@ -178,16 +178,6 @@ attachStores(app, {
   Post
 })
 ```
-
-For `MapTemplate` you can create a custom `nameGetter`
-to set suitable names for each store built from template.
-
-```js
-attachStores(app, { User }, {
-  nameGetter: (store, templateName) => {
-    return `User:${store.get().id}`
-  }
-})
 ```
 
 ### Settings

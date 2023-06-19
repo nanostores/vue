@@ -3,10 +3,6 @@ import type { App } from 'vue'
 
 type AnyStore = AnySyncTemplate | MapTemplate | Store
 
-export interface StoreNameGetter {
-  (store: AnyStore, templateName: string): string
-}
-
 /**
  * Vue Devtools plugin.
  *
@@ -28,11 +24,5 @@ export function attachStores(
   app: App,
   stores: {
     [key: string]: AnyStore
-  },
-  opts?: {
-    /**
-     * Custom name getter for stores that was built from `MapTemplate`.
-     */
-    nameGetter?: StoreNameGetter
   }
 ): void

@@ -1,6 +1,10 @@
 # Change Log
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## Next
+* Fixed broken devtools: removed support for `mapTemplate`.
+* Updated dependencies.
+
 ## 0.9.0
 * Moved to Nano Stores 0.9.
 
