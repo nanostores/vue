@@ -1,7 +1,7 @@
 # Change Log
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## Next
+## 0.9.1
 * Fixed broken devtools: removed support for `mapTemplate`.
 * Updated dependencies.
 
