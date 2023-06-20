@@ -8,6 +8,9 @@ devDependencies:
   '@logux/eslint-config':
     specifier: 51.0.0
     version: 51.0.0(eslint-config-standard@17.1.0)(eslint-plugin-import@2.27.5)(eslint-plugin-n@16.0.0)(eslint-plugin-perfectionist@1.4.0)(eslint-plugin-prefer-let@3.0.1)(eslint-plugin-promise@6.1.1)(eslint@8.43.0)
+  '@nanostores/logger':
+    specifier: github:nanostores/logger
+    version: github.com/nanostores/logger/ac89ff038b8c3b4c440c108744e50016295411c8(nanostores@0.9.2)
   '@size-limit/preset-small-lib':
     specifier: ^8.2.4
     version: 8.2.4(size-limit@8.2.4)
@@ -3658,4 +3661,16 @@ packages:
   /yocto-queue@1.0.0:
     resolution: {integrity: sha512-9bnSc/HEW2uRy67wc+T8UwauLuPJVn28jb+GtJY16iiKWyvmYJRXVT4UamsAEGQfPohgr2q4Tq0sQbQlxTfi1g==}
     engines: {node: '>=12.20'}
+    dev: true
+
+  github.com/nanostores/logger/ac89ff038b8c3b4c440c108744e50016295411c8(nanostores@0.9.2):
+    resolution: {tarball: https://codeload.github.com/nanostores/logger/tar.gz/ac89ff038b8c3b4c440c108744e50016295411c8}
+    id: github.com/nanostores/logger/ac89ff038b8c3b4c440c108744e50016295411c8
+    name: '@nanostores/logger'
+    version: 0.0.0
+    engines: {node: ^16.0.0 || >=18.0.0}
+    peerDependencies:
+      nanostores: '>=0.8.1'
+    dependencies:
+      nanostores: 0.9.2
     dev: true
