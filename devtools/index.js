@@ -289,6 +289,7 @@ export function devtools(app, stores) {
     createLogger,
     eventGroups,
     getGroupId,
+    inspectorId,
     inspectorTree,
     isValidPayload,
     layerId,
