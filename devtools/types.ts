@@ -17,3 +17,15 @@ devtools(
     }
   }
 )
+
+app.use(
+  devtools,
+  { $atom },
+  {
+    getCreatorInspectorState: () => {},
+    ignoreActions: ['Increase Counter'],
+    messages: {
+      build: false
+    }
+  }
+)
