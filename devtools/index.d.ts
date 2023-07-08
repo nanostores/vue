@@ -25,6 +25,13 @@ interface DevtoolsOptions extends CreatorLoggerOptions, LoggerOptions {
  * Detects stores in the selected component, adds their states to the component
  * inspector. Creates a timeline and an inspector for attached stores.
  *
+ * ```js
+ * import { devtools } from '@nanostores/vue/devtools'
+ * import { $profile } from './stores/index.js'
+ *
+ * devtools(app, { $profile })
+ * ```
+ *
  * @param app Vue app.
  * @param stores Stores or creators to attach.
  * @param opts Devtools and logging options.
