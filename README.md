@@ -128,7 +128,7 @@ Each model will be prefixed with `Model`. You can change it via `opts.prefix`.
 ### Install
 
 ```sh
-npm install --save-dev @vue/devtools-api
+npm install --save-dev @vue/devtools-api @nanostores/logger
 ```
 
 ### Usage
@@ -159,7 +159,7 @@ and see their builds, lifecycles and changes on the **timeline**.
 
 ```js
 import { createApp } from 'vue'
-import { devtools, attachStores } from '@nanostores/vue/devtools'
+import { devtools } from '@nanostores/vue/devtools'
 
 import { User } from '../stores/user.js'
 
