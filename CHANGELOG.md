@@ -1,6 +1,14 @@
 # Change Log
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 0.10.0
+* Refactored devtools part:
+  * Added better logging and tagging.
+  * Removed `attachStores` method.
+  * Extended `devtools` method.
+* Dropped Node.js 16 support.
+* Updated dependencies.
+
 ## 0.9.1
 * Fixed broken devtools: removed support for `mapTemplate`.
 * Updated dependencies.

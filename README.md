@@ -122,7 +122,7 @@ Each model will be prefixed with `Model`. You can change it via `opts.prefix`.
 ## Devtools
 
 <p align="center">
-  <img src="img/screenshot.jpg" alt="Nanostores Vue Devtools screenshot" width="830">
+  <img src="img/screenshot.jpg" alt="Nanostores Vue Devtools" width="830">
 </p>
 
 ### Install
@@ -164,19 +164,7 @@ import { devtools, attachStores } from '@nanostores/vue/devtools'
 import { User } from '../stores/user.js'
 
 const app = createApp(…)
-app.use(devtools)
-
-attachStores(app, { User })
-```
-
-You can connect several stores in different places of your application
-and set custom names to simplify the work with devtools.
-
-```js
-attachStores(app, {
-  'Current User': User,
-  Post
-})
+app.use(devtools, { User })
 ```
 
 ### Settings
