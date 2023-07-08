@@ -1,6 +1,7 @@
 import { cleanup, render, screen } from '@testing-library/vue'
 import { delay } from 'nanodelay'
 import { atom, map, onMount, STORE_UNMOUNT_DELAY } from 'nanostores'
+import { afterEach, expect, it } from 'vitest'
 import type { Component } from 'vue'
 import { computed, defineComponent, h, nextTick, ref } from 'vue'
 
@@ -21,7 +22,7 @@ function getCatcher(cb: () => void): [string[], Component] {
   return [errors, Catcher]
 }
 
-test('throws on template instead of store', () => {
+it('throws on template instead of store', () => {
   let Test = (): void => {}
   let [errors, Catcher] = getCatcher(() => {
     // @ts-expect-error
@@ -34,7 +35,7 @@ test('throws on template instead of store', () => {
   ])
 })
 
-test('renders simple store', async () => {
+it('renders simple store', async () => {
   let events: string[] = []
   let renders = 0
 
@@ -98,7 +99,7 @@ test('renders simple store', async () => {
   expect(events).toEqual(['constructor', 'destroy'])
 })
 
-test('renders map store', async () => {
+it('renders map store', async () => {
   let events: string[] = []
   let renders = 0
 
@@ -138,7 +139,7 @@ test('renders map store', async () => {
   expect(renders).toBe(2)
 })
 
-test('does not reload store on component changes', async () => {
+it('does not reload store on component changes', async () => {
   let destroyed = ''
   let simple = atom<string>('')
 

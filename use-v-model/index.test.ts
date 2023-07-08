@@ -1,10 +1,11 @@
 import { fireEvent, render, screen } from '@testing-library/vue'
 import { atom, map, onMount } from 'nanostores'
+import { expect, it } from 'vitest'
 import { defineComponent, nextTick } from 'vue'
 
 import { useVModel } from './index.js'
 
-test('renders simple store', async () => {
+it('renders simple store', async () => {
   let store = atom('')
 
   onMount(store, () => {
@@ -31,7 +32,7 @@ test('renders simple store', async () => {
   expect(input.value).toBe('Lyubov Popova')
 })
 
-test('renders map store', async () => {
+it('renders map store', async () => {
   let events: string[] = []
   let store = map<{ first: string; last: string; user: string }>()
 

@@ -27,9 +27,9 @@
     "node": "^18.0.0 || >=20.0.0"
   },
   "peerDependencies": {
-    "@nanostores/logger": "^0.2.3",
-    "@vue/devtools-api": ">=6.1.4",
-    "nanostores": ">=0.8.1",
+    "@nanostores/logger": ">=0.2.3",
+    "@vue/devtools-api": ">=6.5.0",
+    "nanostores": ">=0.9.2",
     "vue": ">=3.3.1"
   },
   "peerDependenciesMeta": {
@@ -48,7 +48,6 @@
     "@typescript-eslint/eslint-plugin": "^5.59.11",
     "@typescript-eslint/parser": "^5.59.11",
     "@vitejs/plugin-vue": "^4.2.3",
-    "@vitest/coverage-c8": "^0.32.2",
     "@vitest/coverage-v8": "^0.32.2",
     "@vue/compiler-sfc": "^3.3.4",
     "@vue/devtools-api": "^6.5.0",

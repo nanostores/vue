@@ -8,7 +8,6 @@ export default defineConfig({
       100: true,
       include: ['use-store/**', 'map-stores/**', 'use-v-model/**']
     },
-    environment: 'happy-dom',
-    globals: true
+    environment: 'happy-dom'
   }
 })

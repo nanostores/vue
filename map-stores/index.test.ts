@@ -1,10 +1,11 @@
 import { render, screen } from '@testing-library/vue'
 import { atom, map } from 'nanostores'
+import { expect, it } from 'vitest'
 import { defineComponent, h, nextTick } from 'vue'
 
 import { mapStores } from './index.js'
 
-test('has mapStores helper', async () => {
+it('has mapStores helper', async () => {
   let renders = 0
 
   let stringAtomStore = atom('0')
