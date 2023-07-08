@@ -27,17 +27,22 @@
     "node": "^16.0.0 || >=18.0.0"
   },
   "peerDependencies": {
+    "@nanostores/logger": "^0.2.3",
     "@vue/devtools-api": ">=6.1.4",
     "nanostores": ">=0.8.1",
     "vue": ">=3.3.1"
   },
   "peerDependenciesMeta": {
+    "@nanostores/logger": {
+      "optional": true
+    },
     "@vue/devtools-api": {
       "optional": true
     }
   },
   "devDependencies": {
     "@logux/eslint-config": "51.0.0",
+    "@nanostores/logger": "^0.2.3",
     "@size-limit/preset-small-lib": "^8.2.4",
     "@testing-library/vue": "^7.0.0",
     "@typescript-eslint/eslint-plugin": "^5.59.11",
