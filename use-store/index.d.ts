@@ -1,5 +1,5 @@
-import type { Store, StoreValue } from 'nanostores'
-import type { DeepReadonly, Ref } from 'vue'
+import type { AnyStore, Store, StoreValue } from 'nanostores'
+import type { DeepReadonly, ShallowRef, UnwrapNestedRefs } from 'vue'
 
 /**
  * Subscribes to store changes and gets store’s value.
@@ -12,25 +12,19 @@ import type { DeepReadonly, Ref } from 'vue'
  *
  * <script>
  * import { useStore } from '@nanostores/vue'
+ * import { $router } from './router/index.js'
  *
- * import { router } from './router'
- *
- * export default {
- *   setup () {
- *     let page = useStore(router)
- *     return { page }
- *   }
- * }
+ * const page = useStore($router)
  * </script>
  * ```
  *
  * @param store Store instance
- * @returns Store value
+ * @returns Reactive store value
  */
 export function useStore<
   SomeStore extends Store,
   Value extends StoreValue<SomeStore>
->(store: SomeStore): DeepReadonly<Ref<Value>>
+>(store: SomeStore): DeepReadonly<UnwrapNestedRefs<ShallowRef<Value>>>
 
 /**
  * Registers the store for the devtools component inspector.

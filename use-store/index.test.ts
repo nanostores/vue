@@ -2,38 +2,11 @@ import { cleanup, render, screen } from '@testing-library/vue'
 import { delay } from 'nanodelay'
 import { atom, map, onMount, STORE_UNMOUNT_DELAY } from 'nanostores'
 import { afterEach, expect, it } from 'vitest'
-import type { Component } from 'vue'
 import { computed, defineComponent, h, nextTick, ref } from 'vue'
 
 import { useStore } from './index.js'
 
 afterEach(cleanup)
-
-function getCatcher(cb: () => void): [string[], Component] {
-  let errors: string[] = []
-  let Catcher = defineComponent(() => {
-    try {
-      cb()
-    } catch (e) {
-      if (e instanceof Error) errors.push(e.message)
-    }
-    return () => null
-  })
-  return [errors, Catcher]
-}
-
-it('throws on template instead of store', () => {
-  let Test = (): void => {}
-  let [errors, Catcher] = getCatcher(() => {
-    // @ts-expect-error
-    useStore(Test, 'ID')
-  })
-  render(h(Catcher))
-  expect(errors).toEqual([
-    'Use useStore(Template(id)) or useSync() ' +
-      'from @logux/client/vue for templates'
-  ])
-})
 
 it('renders simple store', async () => {
   let events: string[] = []
