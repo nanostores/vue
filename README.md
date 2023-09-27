@@ -16,11 +16,13 @@ with many atomic tree-shakable stores.
 * Was designed to move logic from components to stores.
 * It has good **TypeScript** support.
 
+
 ## Install
 
 ```sh
 npm install @nanostores/vue
 ```
+
 
 ## Usage
 
@@ -30,21 +32,14 @@ Subscribe to store changes and use reactive store state.
 
 ```vue
 <template>
-  <header>{{ post.title }} for {{ user.name }}</header>
+  <header>{{ profile.name }}</header>
 </template>
 
-<script>
+<script setup>
   import { useStore } from '@nanostores/vue'
-  import { profile } from '../stores/profile.js'
-  import { Post } from '../stores/post.js'
+  import { $profile } from '../stores/index.js'
 
-  export default {
-    setup (props) {
-      const user = useStore(profile)
-      const post = useStore(Post(props.postId))
-      return { user, post }
-    }
-  }
+  const profile = useStore($profile)
 </script>
 ```
 
@@ -57,18 +52,14 @@ Generate multiple store states and save a few keystrokes.
   <header>{{ project.name }} / {{ user.name }}</header>
 </template>
 
-<script>
+<script setup>
   import { mapStores } from '@nanostores/vue'
-  import { project } from '../stores/project.js'
-  import { user } from '../stores/user.js'
+  import { $project, $user } from '../stores/index.js'
 
-  export default {
-    setup () {
-      return {
-        ...mapStores({ project, user })
-      }
-    }
-  }
+  const { project, user } = mapStores({
+    project: $project,
+    user: $user
+  })
 </script>
 ```
 
@@ -83,16 +74,11 @@ It will explicitly mutate the store via `store.set()` / `store.setKey()`.
   <input v-model="username"/>
 </template>
 
-<script>
+<script setup>
   import { useVModel } from '@nanostores/vue'
-  import { profile } from '../stores/profile.js'
+  import { $profile } from '../stores/index.js'
 
-  export default {
-    setup () {
-      const username = useVModel(profile, 'username')
-      return { username }
-    }
-  }
+  const username = useVModel($profile, 'username')
 </script>
 ```
 
@@ -105,19 +91,17 @@ Each model will be prefixed with `Model`. You can change it via `opts.prefix`.
   <input v-model="lastNameModel"/>
 </template>
 
-<script>
+<script setup>
   import { useVModel } from '@nanostores/vue'
-  import { profile } from '../stores/profile.js'
+  import { $profile } from '../stores/index.js'
 
-  export default {
-    setup () {
-      return {
-        ...useVModel(profile, ['firstName', 'lastName'])
-      }
-    }
-  }
+  const {
+    firstNameModel,
+    lastNameModel
+  } = useVModel($profile, ['firstName', 'lastName'])
 </script>
 ```
+
 
 ## Devtools
 
@@ -125,11 +109,13 @@ Each model will be prefixed with `Model`. You can change it via `opts.prefix`.
   <img src="img/screenshot.jpg" alt="Nanostores Vue Devtools" width="830">
 </p>
 
+
 ### Install
 
 ```sh
 npm install --save-dev @vue/devtools-api @nanostores/logger
 ```
+
 
 ### Usage
 
@@ -141,8 +127,6 @@ in selected component and add their states to the **component inspector**.
 ```js
 import { createApp } from 'vue'
 import { devtools } from '@nanostores/vue/devtools'
-
-import { User } from '../stores/user.js'
 
 const app = createApp(…)
 app.use(devtools)
@@ -161,20 +145,29 @@ and see their builds, lifecycles and changes on the **timeline**.
 import { createApp } from 'vue'
 import { devtools } from '@nanostores/vue/devtools'
 
-import { User } from '../stores/user.js'
+import { $user } from '../stores/index.js'
 
 const app = createApp(…)
-app.use(devtools, { User })
+
+app.use(devtools, { User: $user })
 ```
 
-### Settings
 
-The states of all detected stores in **component inspector** are updated
-in real time. You can disable this in the the plugin settings
-via the **Real-time update detected** property.
+### Plugin Settings
 
-By default, we removes unmounted stores from **nanostores inspector**
-to keep it clean. You can change this via the **Keep unmounted** property.
+#### Real-time update detection
+
+Real-time update of the states of all detected stores
+in the **component inspector**.
+
+#### Keep unmounted
+
+Keeps all unmounted stores in **Nanostores inspector** tab.
+
+#### Reduce data usage
+
+In some places hides the full store snapshot to reduce data usage
+and speed up devtools.
 
 [Nano Stores]: https://github.com/nanostores/nanostores/
 [Vue Devtools]: https://devtools.vuejs.org
