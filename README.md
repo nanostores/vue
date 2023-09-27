@@ -150,7 +150,7 @@ import { $user } from '../stores/index.js'
 
 const app = createApp(…)
 
-app.use(devtools, { User: $user })
+app.use(devtools, { 'User': $user })
 ```
 
 
