@@ -16,9 +16,10 @@ let stores = mapStores({
   string: stringAtomStore
 })
 
-// THROWS Property 'value' does not exist
-stores.value
-// THROWS Cannot assign to 'string' because it is a read-only
-stores.string = ''
-// THROWS Cannot assign to 'a' because it is a read-only
-stores.deep.letters.a = '2'
+console.log(
+  stores.deep.letters.a,
+  stores.letter.letter,
+  stores.map.letter,
+  stores.number,
+  stores.string
+)

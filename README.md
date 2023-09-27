@@ -45,20 +45,21 @@ Subscribe to store changes and use reactive store state.
 
 ### Multiple store states
 
-Generate multiple store states and save a few keystrokes.
+Combines multiple stores into a single reactive state.
 
 ```vue
 <template>
-  <header>{{ project.name }} / {{ user.name }}</header>
+  <header>{{ t.header.title }}</header>
+  <footer>{{ t.footer.copyright }}</footer>
 </template>
 
 <script setup>
   import { mapStores } from '@nanostores/vue'
-  import { $project, $user } from '../stores/index.js'
+  import { headerMessages, footerMessages } from '../i18n/index.js'
 
-  const { project, user } = mapStores({
-    project: $project,
-    user: $user
+  const t = mapStores({
+    header: headerMessages,
+    footer: footerMessages
   })
 </script>
 ```

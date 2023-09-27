@@ -14,23 +14,18 @@ it('has mapStores helper', async () => {
   let letterMapStore = map({ letter: 'b' })
 
   let Component = defineComponent(() => {
-    let {
-      letterAtomStore: s3,
-      letterMapStore: s4,
-      numberAtomStore: s2,
-      stringAtomStore: s1
-    } = mapStores({
-      letterAtomStore,
-      letterMapStore,
-      numberAtomStore,
-      stringAtomStore
+    let t = mapStores({
+      atom: letterAtomStore,
+      map: letterMapStore,
+      number: numberAtomStore,
+      string: stringAtomStore
     })
     return () => {
       renders += 1
       return h(
         'div',
         { 'data-testid': 'test' },
-        `${s1.value} ${s2.value} ${s3.value.letter} ${s4.value.letter}`
+        `${t.string} ${t.number} ${t.atom.letter} ${t.map.letter}`
       )
     }
   })

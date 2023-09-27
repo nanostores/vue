@@ -1,36 +1,33 @@
-import type { AnySyncTemplate, Atom, MapStore, StoreValue } from 'nanostores'
-import type { DeepReadonly, Ref } from 'vue'
-
-type AnyStore = AnySyncTemplate | Atom | MapStore
+import type { AnyStore, StoreValue } from 'nanostores'
+import type { DeepReadonly, ShallowRef, UnwrapNestedRefs } from 'vue'
 
 /**
- * Generates object with multiple store states via `useStore()`.
+ * Combines multiple stores into a single reactive state.
  *
  * ```html
  * <template>
- *   <header>{{ project.name }} / {{ user.name }}</header>
+ *   <header>{{ t.header.title }}</header>
+ *   <footer>{{ t.footer.copyright }}</footer>
  * </template>
  *
- * <script>
+ * <script setup>
  * import { mapStores } from '@nanostores/vue'
- * import { project } from '../stores/project.js'
- * import { user } from '../stores/user.js'
+ * import { headerMessages, footerMessages } from '../i18n/index.js'
  *
- * export default {
- *   setup () {
- *     return {
- *       ...mapStores({ project, user })
- *     }
- *   }
- * }
+ * const t = mapStores({
+ *   header: headerMessages,
+ *   footer: footerMessages
+ * })
  * </script>
  * ```
  *
  * @param stores Object of stores
- * @returns Multiple store states
+ * @returns Reactive state with multiple stores
  */
-export function mapStores<Stores extends { [key: string]: AnyStore }>(
-  stores: Stores
-): {
-  [Property in keyof Stores]: DeepReadonly<Ref<StoreValue<Stores[Property]>>>
-}
+export function mapStores<StoreList extends { [key: string]: AnyStore }>(
+  stores: StoreList
+): DeepReadonly<
+  UnwrapNestedRefs<{
+    [StoreName in keyof StoreList]: ShallowRef<StoreValue<StoreList[StoreName]>>
+  }>
+>
