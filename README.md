@@ -129,6 +129,7 @@ import { createApp } from 'vue'
 import { devtools } from '@nanostores/vue/devtools'
 
 const app = createApp(…)
+
 app.use(devtools)
 ```
 
