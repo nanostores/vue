@@ -18,15 +18,6 @@ export function registerStore(store) {
 export function useStore(store) {
   let state = shallowRef()
 
-  if (process.env.NODE_ENV !== 'production') {
-    if (typeof store === 'function') {
-      throw new Error(
-        'Use useStore(Template(id)) or useSync() ' +
-          'from @logux/client/vue for templates'
-      )
-    }
-  }
-
   let unsubscribe = store.subscribe(value => {
     state.value = value
   })
