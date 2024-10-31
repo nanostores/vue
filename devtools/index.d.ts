@@ -38,7 +38,7 @@ interface DevtoolsOptions extends CreatorLoggerOptions, LoggerOptions {
  */
 export function devtools(
   app: App,
-  stores: {
+  stores?: {
     [key: string]: AnyStore | MapCreator
   },
   opts?: DevtoolsOptions

@@ -42,7 +42,7 @@ it('renders map store', async () => {
     store.setKey('user', 'Suprematist')
   })
 
-  store.listen((value, key) => {
+  store.listen((value, oldValue, key) => {
     events.push(value[key])
   })
 

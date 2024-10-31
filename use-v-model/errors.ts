@@ -14,7 +14,7 @@ atomKeyState.value = 1
 let mapStore = map({ letter: 'a', number: 0 })
 let mapModel = useVModel(mapStore)
 let mapKeyState = useVModel(mapStore, 'letter')
-// THROWS not assignable to parameter
+// THROWS 'test' does not exist
 let mapKeysState = useVModel(mapStore, ['letter', 'number'], { test: 'a' })
 let mapKeysStatePrefixed = useVModel(mapStore, ['letter', 'number'], {
   prefix: 'Test'
