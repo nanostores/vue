@@ -11,7 +11,6 @@ devtools(
   { $atom },
   {
     getCreatorInspectorState: () => {},
-    ignoreActions: ['Increase Counter'],
     messages: {
       build: false
     }
@@ -23,7 +22,6 @@ app.use(
   { $atom },
   {
     getCreatorInspectorState: () => {},
-    ignoreActions: ['Increase Counter'],
     messages: {
       build: false
     }
