@@ -1,12 +1,18 @@
 import vue from '@vitejs/plugin-vue'
-import { defineConfig } from 'vite'
+import { defineConfig } from 'vitest/config'
 
 export default defineConfig({
   plugins: [vue()],
   test: {
     coverage: {
-      100: true,
-      include: ['use-store/**', 'map-stores/**', 'use-v-model/**']
+      include: [
+        'use-store/index.js',
+        'map-stores/index.js',
+        'use-v-model/index.js'
+      ],
+      thresholds: {
+        lines: 100
+      }
     },
     environment: 'happy-dom'
   }

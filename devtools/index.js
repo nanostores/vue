@@ -101,48 +101,6 @@ function createLogger(
     store,
     storeName,
     {
-      action: {
-        end: ({ actionId, actionName }) => {
-          api.addTimelineEvent({
-            event: {
-              groupId: actionId,
-              subtitle: 'action was ended',
-              time: api.now(),
-              title: actionName
-            },
-            layerId: LAYER_ID
-          })
-        },
-
-        error: ({ actionId, actionName, error }) => {
-          api.addTimelineEvent({
-            event: {
-              data: {
-                message: error.message
-              },
-              groupId: actionId,
-              logType: 'error',
-              subtitle: 'action handled error',
-              time: api.now(),
-              title: actionName
-            },
-            layerId: LAYER_ID
-          })
-        },
-
-        start: ({ actionId, actionName }) => {
-          api.addTimelineEvent({
-            event: {
-              groupId: actionId,
-              subtitle: 'action was started',
-              time: api.now(),
-              title: actionName
-            },
-            layerId: LAYER_ID
-          })
-        }
-      },
-
       change: ({ actionId, changed, newValue, oldValue, valueMessage }) => {
         let data = {
           changed,
@@ -372,6 +330,26 @@ export function devtools(app, storesOrCreators, opts = {}) {
   setupDevtoolsPlugin({ ...PLUGIN_CONFIG, app }, _api => {
     api = _api
 
+    if (storesOrCreators) {
+      for (let [storeName, store] of Object.entries(storesOrCreators)) {
+        let inspectorNode = {
+          children: [],
+          id: getNodeId(),
+          label: storeName,
+          tags: []
+        }
+  
+        inspectorTree.push(inspectorNode)
+        api.sendInspectorTree(INSPECTOR_ID)
+  
+        if (isCreator(store)) {
+          createCreatorLogger(api, app, store, storeName, inspectorNode, opts)
+        } else {
+          createLogger(api, app, store, storeName, inspectorNode, opts)
+        }
+      }
+    }
+
     api.addTimelineLayer({
       color: 0x0059d1,
       id: LAYER_ID,
@@ -487,24 +465,4 @@ export function devtools(app, storesOrCreators, opts = {}) {
       }
     })
   })
-
-  if (storesOrCreators) {
-    for (let [storeName, store] of Object.entries(storesOrCreators)) {
-      let inspectorNode = {
-        children: [],
-        id: getNodeId(),
-        label: storeName,
-        tags: []
-      }
-
-      inspectorTree.push(inspectorNode)
-      api.sendInspectorTree(INSPECTOR_ID)
-
-      if (isCreator(store)) {
-        createCreatorLogger(api, app, store, storeName, inspectorNode, opts)
-      } else {
-        createLogger(api, app, store, storeName, inspectorNode, opts)
-      }
-    }
-  }
 }
