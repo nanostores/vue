@@ -14,7 +14,7 @@
     "test:coverage": "vitest run --coverage",
     "test:types": "check-dts",
     "test:size": "size-limit",
-    "test": "pnpm run /^test:/"
+    "test": "pnpm --color run /^test:/"
   },
   "author": "Eduard Aksamitov <e@euaaaio.ru>",
   "license": "MIT",
