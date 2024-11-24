@@ -1,6 +1,13 @@
 # Change Log
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 0.11.0
+* Moved to Nano Stores 0.11.
+* Added support for Vue Devtools 7 (next).
+* Changed return value of `mapStores()` to `reactive`.
+* Updated dependencies.
+* Improved types.
+
 ## 0.10.0
 * Refactored devtools part:
   * Added better logging and tagging.
