@@ -17,11 +17,15 @@ export function useVModel(store, keys, opts = {}) {
     }, {})
   } else {
     let key = keys
+    if (!key) {
+      return computed({
+        get: () => state.value,
+        set: value => store.set(value)
+      })
+    }
     return computed({
-      get: () => (key ? state.value[key] : state.value),
-      set: value => {
-        key ? store.setKey(key, value) : store.set(value)
-      }
+      get: () => state.value[key],
+      set: value => store.setKey(key, value)
     })
   }
 }
