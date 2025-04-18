@@ -1,6 +1,12 @@
 # Change Log
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 1.0.0
+* Moved to Nano Stores 1.0.
+* Improved `useVModel()` performance (by @wsafight).
+* Removed Node.js 18 support.
+* Updated dependencies.
+
 ## 0.11.0
 * Moved to Nano Stores 0.11.
 * Added support for Vue Devtools 7 (next).
