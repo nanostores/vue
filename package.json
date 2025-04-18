@@ -30,6 +30,12 @@
   "engines": {
     "node": "^18.0.0 || ^20.0.0 || >=22.0.0"
   },
+  "funding": [
+    {
+      "type": "buymeacoffee",
+      "url": "https://buymeacoffee.com/euaaaio"
+    }
+  ],
   "peerDependencies": {
     "@nanostores/logger": ">=0.4.0",
     "@vue/devtools-api": ">=7.6.2",
