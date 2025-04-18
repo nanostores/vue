@@ -27,13 +27,20 @@
     "./devtools": "./devtools/index.js",
     "./package.json": "./package.json"
   },
+  "packageManager": "pnpm@10.8.0",
   "engines": {
-    "node": "^18.0.0 || ^20.0.0 || >=22.0.0"
+    "node": "^20.0.0 || >=22.0.0"
   },
+  "funding": [
+    {
+      "type": "buymeacoffee",
+      "url": "https://buymeacoffee.com/euaaaio"
+    }
+  ],
   "peerDependencies": {
-    "@nanostores/logger": ">=0.4.0",
+    "@nanostores/logger": "^0.4.0 || ^1.0.0",
     "@vue/devtools-api": ">=7.6.2",
-    "nanostores": ">=0.11.3",
+    "nanostores": "^0.11.3 || ^1.0.0",
     "vue": ">=3.3.1"
   },
   "peerDependenciesMeta": {
@@ -45,30 +52,30 @@
     }
   },
   "devDependencies": {
-    "@logux/eslint-config": "53.4.2",
-    "@nanostores/logger": "^0.4.0",
-    "@size-limit/preset-small-lib": "^11.1.6",
+    "@logux/eslint-config": "55.2.1",
+    "@nanostores/logger": "^1.0.0",
+    "@size-limit/preset-small-lib": "^11.2.0",
     "@testing-library/vue": "^8.1.0",
-    "@types/node": "^22.8.6",
-    "@vitejs/plugin-vue": "^5.1.4",
-    "@vitest/coverage-v8": "^2.1.4",
-    "@vue/compiler-sfc": "^3.5.12",
-    "@vue/devtools-api": "^7.6.2",
-    "check-dts": "^0.8.2",
+    "@types/node": "^22.14.1",
+    "@vitejs/plugin-vue": "^5.2.3",
+    "@vitest/coverage-v8": "^3.1.1",
+    "@vue/compiler-sfc": "^3.5.13",
+    "@vue/devtools-api": "^7.7.5",
+    "check-dts": "^0.9.0",
     "clean-publish": "^5.1.0",
-    "eslint": "^9.13.0",
-    "happy-dom": "^15.7.4",
+    "eslint": "^9.25.0",
+    "happy-dom": "^17.4.4",
     "nano-staged": "^0.8.0",
     "nanodelay": "^2.0.2",
-    "nanostores": "^0.11.3",
-    "prettier": "^3.3.3",
-    "simple-git-hooks": "^2.11.1",
-    "size-limit": "^11.1.6",
-    "typescript": "^5.6.3",
-    "vite": "^5.4.10",
-    "vite-plugin-vue-devtools": "^7.6.2",
-    "vitest": "^2.1.4",
-    "vue": "^3.5.12"
+    "nanostores": "^1.0.1",
+    "prettier": "^3.5.3",
+    "simple-git-hooks": "^2.12.1",
+    "size-limit": "^11.2.0",
+    "typescript": "^5.8.3",
+    "vite": "^6.3.2",
+    "vite-plugin-vue-devtools": "^7.7.5",
+    "vitest": "^3.1.1",
+    "vue": "^3.5.13"
   },
   "simple-git-hooks": {
     "pre-commit": "./node_modules/.bin/nano-staged"
@@ -94,7 +101,7 @@
         "index.js": "{ useStore }",
         "nanostores": "{ map, computed }"
       },
-      "limit": "824 B"
+      "limit": "826 B"
     },
     {
       "name": "useStore + helpers",
@@ -102,7 +109,7 @@
         "index.js": "{ useStore, useVModel, mapStores }",
         "nanostores": "{ map, computed }"
       },
-      "limit": "976 B"
+      "limit": "973 B"
     }
   ],
   "clean-publish": {

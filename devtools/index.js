@@ -1,3 +1,4 @@
+/* eslint-disable perfectionist/sort-objects */
 import { buildCreatorLogger, buildLogger } from '@nanostores/logger'
 import { setupDevtoolsPlugin } from '@vue/devtools-api'
 import { onMount, onSet } from 'nanostores'
@@ -105,7 +106,6 @@ function createLogger(
         let data = {
           changed,
           valueMessage,
-          // eslint-disable-next-line perfectionist/sort-objects
           newValue,
           oldValue
         }
@@ -181,8 +181,9 @@ function createLogger(
         inspectorId: INSPECTOR_ID,
         nodeId: inspectorNode.id
       })
-    )
-      {return}
+    ) {
+      return
+    }
 
     payload.state = {
       State: isAtom(store)
@@ -212,8 +213,9 @@ function createLogger(
         inspectorId: INSPECTOR_ID,
         nodeId: inspectorNode.id
       })
-    )
-      {return}
+    ) {
+      return
+    }
 
     let { path, state } = payload
     if (isAtom(store)) {
@@ -257,9 +259,7 @@ function createCreatorLogger(
         let data = {
           event: 'build',
           storeName,
-          // eslint-disable-next-line perfectionist/sort-objects
           store,
-          // eslint-disable-next-line perfectionist/sort-objects
           by: creatorName
         }
         if (api.getSettings().reduceDataUsage) {
@@ -304,8 +304,9 @@ function createCreatorLogger(
         inspectorId: INSPECTOR_ID,
         nodeId: inspectorNode.id
       })
-    )
-      {return}
+    ) {
+      return
+    }
 
     let { reduceDataUsage } = api.getSettings()
     payload.state = {
@@ -338,10 +339,10 @@ export function devtools(app, storesOrCreators, opts = {}) {
           label: storeName,
           tags: []
         }
-  
+
         inspectorTree.push(inspectorNode)
         api.sendInspectorTree(INSPECTOR_ID)
-  
+
         if (isCreator(store)) {
           createCreatorLogger(api, app, store, storeName, inspectorNode, opts)
         } else {
@@ -433,8 +434,9 @@ export function devtools(app, storesOrCreators, opts = {}) {
           app,
           type: PLUGIN_CONFIG.componentStateTypes[0]
         })
-      )
-        {return}
+      ) {
+        return
+      }
 
       let {
         componentInstance,
