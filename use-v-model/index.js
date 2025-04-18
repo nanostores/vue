@@ -17,7 +17,7 @@ export function useVModel(store, keys, opts = {}) {
     }, {})
   } else {
     let key = keys
-    if (!key) {
+    if (key === undefined) {
       return computed({
         get: () => state.value,
         set: value => store.set(value)
