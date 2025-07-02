@@ -367,7 +367,7 @@ export function devtools(app, storesOrCreators, opts = {}) {
     api.on.visitComponentTree(payload => {
       if (!isValidPayload(payload, { app })) return
 
-      if ('_nanostores' in payload.componentInstance.proxy) {
+      if (payload?.componentInstance?.proxy && "_nanostores" in payload.componentInstance.proxy) {
         payload.treeNode.tags.push(TAGS.nanostores)
       }
     })
