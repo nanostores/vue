@@ -1,6 +1,10 @@
 # Change Log
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 1.0.1
+* Fixed broken devtools (by @oguzhanmemis7849).
+* Updated dependencies.
+
 ## 1.0.0
 * Moved to Nano Stores 1.0.
 * Improved `useVModel()` performance (by @wsafight).
