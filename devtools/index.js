@@ -367,9 +367,9 @@ export function devtools(app, storesOrCreators, opts = {}) {
     api.on.visitComponentTree(payload => {
       if (!isValidPayload(payload, { app })) return
 
-      const proxy = payload?.componentInstance?.proxy;
+      let proxy = payload.componentInstance?.proxy
       if (proxy && '_nanostores' in proxy) {
-        payload.treeNode.tags.push(TAGS.nanostores);
+        payload.treeNode.tags.push(TAGS.nanostores)
       }
     })
 
