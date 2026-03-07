@@ -1,6 +1,11 @@
 # Change Log
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 1.1.0
+* Fixed SSR memory leaks caused by leaked subscriptions in `useStore()`.
+* Added support for Node.js 25.
+* Updated dependencies.
+
 ## 1.0.1
 * Fixed broken devtools (by @oguzhanmemis7849).
 * Updated dependencies.
