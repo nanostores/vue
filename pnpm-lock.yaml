@@ -32,9 +32,6 @@ importers:
       '@vitest/coverage-v8':
         specifier: ^4.0.18
         version: 4.0.18(vitest@4.0.18(@types/node@25.3.5)(happy-dom@20.8.3)(jiti@2.4.2))
-      '@vue/compiler-sfc':
-        specifier: ^3.5.29
-        version: 3.5.29
       '@vue/devtools-api':
         specifier: ^8.0.7
         version: 8.0.7
@@ -44,9 +41,6 @@ importers:
       check-dts:
         specifier: ^0.9.0
         version: 0.9.0(typescript@5.9.3)
-      clean-publish:
-        specifier: ^6.0.3
-        version: 6.0.3
       eslint:
         specifier: ^10.0.3
         version: 10.0.3(jiti@2.4.2)
@@ -1139,11 +1133,6 @@ packages:
     hasBin: true
     peerDependencies:
       typescript: '>=4.0.0'
-
-  clean-publish@6.0.3:
-    resolution: {integrity: sha512-brittZyUitwhD8t9a2hgy7sRONXyjw6a3jezd70cLdOfhipbsZV+9zLqN/mRgPxD9LwhZPMZEZU12kE0G9liMA==}
-    engines: {node: '>= 20.0.0'}
-    hasBin: true
 
   color-convert@2.0.1:
     resolution: {integrity: sha512-RRECPsj7iu/xb5oKYcsFHSppFNnsj/52OVTRKb4zP5onXwVF3zVmmToNcOfGC+CRDpfK/U584fMg38ZHCaElKQ==}
@@ -3368,13 +3357,6 @@ snapshots:
       picocolors: 1.1.1
       typescript: 5.9.3
       vfile-location: 5.0.3
-
-  clean-publish@6.0.3:
-    dependencies:
-      lilconfig: 3.1.3
-      picomatch: 4.0.3
-      tinyexec: 1.0.2
-      tinyglobby: 0.2.15
 
   color-convert@2.0.1:
     dependencies:
