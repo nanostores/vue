@@ -18,11 +18,14 @@ export function registerStore(store) {
 export function useStore(store) {
   let state = shallowRef()
 
-  let unsubscribe = store.subscribe(value => {
-    state.value = value
-  })
-
-  getCurrentScope() && onScopeDispose(unsubscribe)
+  if (typeof window !== 'undefined') {
+    let unsubscribe = store.subscribe(value => {
+      state.value = value
+    })
+    getCurrentScope() && onScopeDispose(unsubscribe)
+  } else {
+    state.value = store.get()
+  }
 
   if (process.env.NODE_ENV !== 'production') {
     registerStore(store)
