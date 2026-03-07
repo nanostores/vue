@@ -53,6 +53,7 @@
   },
   "devDependencies": {
     "@logux/eslint-config": "56.0.0",
+    "@nanostores/deepmap": "^0.0.1",
     "@nanostores/logger": "^1.0.0",
     "@size-limit/preset-small-lib": "^11.2.0",
     "@testing-library/vue": "^8.1.0",
@@ -67,7 +68,7 @@
     "happy-dom": "^18.0.1",
     "nano-staged": "^0.8.0",
     "nanodelay": "^2.0.2",
-    "nanostores": "^1.0.1",
+    "nanostores": "^1.1.0",
     "prettier": "^3.6.2",
     "simple-git-hooks": "^2.13.0",
     "size-limit": "^11.2.0",

@@ -1,5 +1,6 @@
+import { deepMap } from '@nanostores/deepmap'
 import { delay } from 'nanodelay'
-import { atom, deepMap, map, STORE_UNMOUNT_DELAY } from 'nanostores'
+import { atom, map, STORE_UNMOUNT_DELAY } from 'nanostores'
 
 export let $atom = atom()
 export let $map = map({
