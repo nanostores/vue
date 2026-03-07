@@ -10,6 +10,8 @@
     "noEmit": true
   },
   "exclude": [
-    "**/errors.ts"
+    "**/errors.ts",
+    "vitest.config.ts",
+    "demo/vite.config.ts"
   ]
 }
